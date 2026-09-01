@@ -22,3 +22,10 @@ data/**/*.csv
 
 # IDE
 .vscode/
+# RAG generated files
+data/embeddings/
+data/vector_store/
+
+# Processed and chunked datasets
+data/processed/
+data/chunks/

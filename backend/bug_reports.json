@@ -1,0 +1,10 @@
+[
+    {
+        "id": 1,
+        "title": "Login error",
+        "description": "User cannot login after entering valid credentials.",
+        "stack_trace": "NullPointerException at LoginService.java:25",
+        "error_logs": "ERROR: Login service failed",
+        "created_at": "2026-08-29T11:26:20.852243"
+    }
+]

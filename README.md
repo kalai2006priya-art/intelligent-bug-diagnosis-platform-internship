@@ -4,7 +4,7 @@
 
 This project focuses on developing an intelligent platform for software bug diagnosis and fix recommendation.
 
-The system accepts bug reports, stack traces, and error logs from users. It analyzes the submitted information, retrieves similar historical defects using semantic search and a RAG pipeline, and provides possible root-cause analysis and fix recommendations.
+The system accepts bug reports, stack traces, and error logs from users. It analyzes the submitted information, retrieves similar historical defects using semantic similarity and a Retrieval-Augmented Generation (RAG) pipeline, and provides possible root-cause analysis and fix recommendations.
 
 ## Main Objectives
 
@@ -13,97 +13,67 @@ The system accepts bug reports, stack traces, and error logs from users. It anal
 - Find similar defects from historical bug reports
 - Use semantic similarity and vector search for defect retrieval
 - Analyze possible root causes of software defects
-- Recommend possible fixes based on retrieved knowledge
+- Recommend possible fixes based on retrieved historical knowledge
 - Build a historical defect knowledge base using public datasets
+- Support AI-agent-based bug diagnosis
 
 ## Main Modules
 
 1. Bug Submission Module
 2. Bug Report Processing Module
 3. Historical Defect Knowledge Base
-4. Data Cleaning and Chunking Pipeline
-5. Embedding Generation
-6. Vector Database and Semantic Search
-7. RAG Retrieval Pipeline
-8. AI Agent Layer
-9. Structured Diagnosis
-10. Fix Recommendation
+4. Data Cleaning and Standardization
+5. Dataset Chunking Pipeline
+6. Embedding Generation
+7. FAISS Vector Search
+8. RAG Retrieval Pipeline
+9. AI Agent Layer
+10. Structured Diagnosis
+11. Fix Recommendation
 
 ## AI Agent Layer
 
 The platform is designed with multiple specialized agents:
 
-- Triage Agent – performs initial classification and prioritization of the reported bug
-- Log Analysis Agent – analyzes stack traces and error logs
-- Root Cause Agent – identifies possible causes of the defect
-- Duplicate Detection Agent – finds potentially duplicate or similar historical defects
-- Remediation Agent – provides possible fix or remediation recommendations
+- **Triage Agent** – performs initial classification and prioritization of the reported bug
+- **Log Analysis Agent** – analyzes stack traces and error logs
+- **Historical Defect Retrieval** – retrieves relevant historical defects using semantic similarity
+- **Duplicate Detection Agent** – identifies potentially duplicate or highly similar historical defects
+- **Root Cause Agent** – identifies possible causes of the defect
+- **Remediation Agent** – provides possible fix or remediation recommendations
 
-An Agent Orchestrator coordinates the execution and information flow between these agents.
+An Agent Orchestrator coordinates the execution and information flow between these specialized agents.
 
 ## Historical Defect Knowledge Base
 
-The historical defect knowledge base will be developed using public bug datasets from:
+The historical defect knowledge base is developed using public software defect datasets from:
 
 - Mozilla
 - Apache
 - Eclipse
 
-The historical bug reports will be cleaned, standardized, chunked, converted into embeddings, and indexed in a vector database for semantic retrieval.
+The historical bug reports are cleaned, standardized, divided into manageable chunks, converted into vector embeddings, and indexed using FAISS for semantic retrieval.
 
-## RAG Pipeline
+### Current Dataset Processing Pipeline
 
-The Retrieval-Augmented Generation (RAG) pipeline retrieves relevant historical defects based on the submitted bug information.
-
-The retrieved context is provided to the language model and AI agent layer to support diagnosis and fix recommendation.
-
-## Technology Stack
-
-### Frontend
-- React.js
-
-### Backend
-- Python
-- FastAPI
-
-### AI / Machine Learning
-- Python
-- Sentence Transformers
-- Semantic Similarity
-- Embeddings
-- Large Language Model (LLM)
-
-### RAG
-- LangChain
-- Retrieval-Augmented Generation (RAG)
-
-### Vector Database
-- ChromaDB
-
-### Database
-- PostgreSQL
-
-### Development & Version Control
-- Git
-- GitHub
-
-### System Architecture
-- Draw.io
-
-## Project Architecture
-
-The system architecture describes the flow from bug submission and processing to historical defect retrieval, AI-agent-based diagnosis, and fix recommendation.
-
-![System Architecture](System_Architecture.png)
-
-## Project Status
-
-**Milestone 1 - In Progress**
-
-Current focus:
-
-- Understanding defect analysis workflows
-- Studying RAG architecture and semantic similarity
-- Designing system architecture and agent responsibilities
-- Developing the Bug Submission Module
-- Building the Historical Defect Knowledge Base
+```text
+Historical Defect Datasets
+        |
+        v
+Dataset Inspection
+        |
+        v
+Data Cleaning & Standardization
+        |
+        v
+Dataset Chunking
+        |
+        v
+Embedding Generation
+        |
+        v
+FAISS Vector Indexing
+        |
+        v
+Semantic Similarity Retrieval
+```

@@ -45,8 +45,10 @@ class TriageResult(BaseModel):
 
 class LogAnalysisResult(BaseModel):
     exception_type: str
+    error_message: str
     failure_point: str
     affected_code_path: str
+    confidence_score: float
 
 
 # =========================
@@ -125,7 +127,7 @@ def triage_agent(bug: BugReport):
     ]):
 
         severity = "Critical"
-        priority = "High"
+        priority = "Critical"
         confidence_score = 0.95
 
         reasoning = (
@@ -242,13 +244,18 @@ def log_analysis_agent(bug: BugReport):
     )
 
     exception_type = "Unknown"
+    error_message = "Unable to determine"
     failure_point = "Unable to determine"
     affected_code_path = "Unable to determine"
+    confidence_score = 0.50
 
-    # Detect exception type
+    # ---------------------------------
+    # Detect exception / error type
+    # ---------------------------------
+
     exception_patterns = [
-        r"([A-Za-z]+Exception)",
-        r"([A-Za-z]+Error)"
+        r"([A-Za-z][A-Za-z0-9_]*Exception)",
+        r"([A-Za-z][A-Za-z0-9_]*Error)"
     ]
 
     for pattern in exception_patterns:
@@ -257,9 +264,42 @@ def log_analysis_agent(bug: BugReport):
 
         if match:
             exception_type = match.group(1)
+            confidence_score = 0.90
             break
 
+    # ---------------------------------
+    # Extract error message
+    # ---------------------------------
+
+    error_message_patterns = [
+        r"(?:ERROR|Error|error)\s*:\s*(.+)",
+        r"(?:Exception|Error)\s*:\s*(.+)",
+        r"(?:message|Message)\s*:\s*(.+)"
+    ]
+
+    for pattern in error_message_patterns:
+
+        match = re.search(pattern, log_text)
+
+        if match:
+            error_message = match.group(1).strip()
+            break
+
+    # If no explicit error message is found,
+    # use the first line containing the exception type
+    if error_message == "Unable to determine" and exception_type != "Unknown":
+
+        for line in log_text.splitlines():
+
+            if exception_type in line:
+
+                error_message = line.strip()
+                break
+
+    # ---------------------------------
     # Detect failure point
+    # ---------------------------------
+
     line_pattern = r"at\s+([A-Za-z0-9_.$]+)\(([^)]*)\)"
 
     match = re.search(line_pattern, log_text)
@@ -271,6 +311,8 @@ def log_analysis_agent(bug: BugReport):
 
         failure_point = f"{method_name}({location})"
         affected_code_path = method_name
+
+        confidence_score = max(confidence_score, 0.90)
 
     else:
 
@@ -293,15 +335,23 @@ def log_analysis_agent(bug: BugReport):
 
             affected_code_path = method_name
 
+            confidence_score = max(confidence_score, 0.85)
+
         else:
+
+            # ---------------------------------
+            # Fallback code path detection
+            # ---------------------------------
 
             text = log_text.lower()
 
-            if "login" in text:
+            if "login" in text or "authentication" in text:
 
                 affected_code_path = (
                     "Authentication / Login flow"
                 )
+
+                confidence_score = max(confidence_score, 0.75)
 
             elif "database" in text or "sql" in text:
 
@@ -309,11 +359,15 @@ def log_analysis_agent(bug: BugReport):
                     "Database access flow"
                 )
 
+                confidence_score = max(confidence_score, 0.75)
+
             elif "api" in text or "endpoint" in text:
 
                 affected_code_path = (
                     "API / Backend request flow"
                 )
+
+                confidence_score = max(confidence_score, 0.75)
 
             elif "file" in text or "upload" in text:
 
@@ -321,10 +375,27 @@ def log_analysis_agent(bug: BugReport):
                     "File handling flow"
                 )
 
+                confidence_score = max(confidence_score, 0.75)
+
+    # ---------------------------------
+    # Adjust confidence for incomplete data
+    # ---------------------------------
+
+    if exception_type == "Unknown":
+        confidence_score = min(confidence_score, 0.50)
+
+    elif failure_point == "Unable to determine":
+        confidence_score = min(confidence_score, 0.70)
+
+    if error_message == "Unable to determine":
+        confidence_score = min(confidence_score, 0.75)
+
     return LogAnalysisResult(
         exception_type=exception_type,
+        error_message=error_message,
         failure_point=failure_point,
-        affected_code_path=affected_code_path
+        affected_code_path=affected_code_path,
+        confidence_score=round(confidence_score, 2)
     )
 
 
@@ -334,6 +405,22 @@ def log_analysis_agent(bug: BugReport):
 
 @app.post("/bugs")
 def submit_bug(bug: BugReport):
+
+    # ---------------------------------
+    # Validate input
+    # ---------------------------------
+
+    if not bug.title.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Bug title cannot be empty."
+        )
+
+    if not bug.description.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Bug description cannot be empty."
+        )
 
     reports = load_bug_reports()
 
@@ -351,13 +438,31 @@ def submit_bug(bug: BugReport):
     # STEP 1: RUN TRIAGE AGENT
     # -------------------------
 
-    triage_result = triage_agent(bug)
+    try:
+
+        triage_result = triage_agent(bug)
+
+    except Exception as error:
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Triage Agent failed: {str(error)}"
+        )
 
     # -------------------------
     # STEP 2: RUN LOG ANALYSIS AGENT
     # -------------------------
 
-    log_analysis_result = log_analysis_agent(bug)
+    try:
+
+        log_analysis_result = log_analysis_agent(bug)
+
+    except Exception as error:
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Log Analysis Agent failed: {str(error)}"
+        )
 
     # -------------------------
     # STEP 3: COMBINE AGENT OUTPUTS

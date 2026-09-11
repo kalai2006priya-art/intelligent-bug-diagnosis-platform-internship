@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Submit Bug | BugDiag AI</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+
+        .bug-form {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dfe3eb;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .upload-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            background: #f8fafc;
+        }
+
+        .upload-box p {
+            color: #64748b;
+            font-size: 13px;
+            margin: 8px 0 15px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 25px;
+        }
+
+        .page-title p {
+            color: #7b8495;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        /* =========================
+           SUCCESS RESULT
+        ========================= */
+
+        .result-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .result-box h3 {
+            margin-bottom: 12px;
+            color: #166534;
+        }
+
+        .result-box p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        /* =========================
+           LOG ANALYSIS
+        ========================= */
+
+        .analysis-box {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+
+        .analysis-box h3 {
+            color: #1d4ed8;
+            margin-bottom: 12px;
+        }
+
+        .analysis-box p {
+            margin: 9px 0;
+        }
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            BugDiag <span>AI</span>
+        </div>
+
+        <a href="dashboard.html" class="nav-item">
+            Dashboard
+        </a>
+
+        <a href="submit-bug.html" class="nav-item active">
+            Submit Bug
+        </a>
+
+        <a href="#" class="nav-item">
+            Bug Reports
+        </a>
+
+        <a href="#" class="nav-item">
+            Analysis
+        </a>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="main-content">
+
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>Bug Submission</h1>
+
+                <p>
+                    Submit a bug for intelligent diagnosis
+                </p>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="profile-avatar">
+                    K
+                </div>
+
+                <span>
+                    Kalaipriya
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             BUG FORM
+        ========================= -->
+
+        <div class="section bug-form">
+
+
+            <div class="page-title">
+
+                <h1>
+                    Submit New Bug
+                </h1>
+
+                <p>
+                    Provide the bug details below. The AI agents will analyze
+                    the submitted information.
+                </p>
+
+            </div>
+
+
+
+            <form id="bugForm">
+
+
+                <!-- BUG TITLE -->
+
+                <div class="form-group">
+
+                    <label for="title">
+                        Bug Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Example: Login service throws NullPointerException"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Bug Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Describe what happened, when it happened and the expected behavior..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- STACK TRACE -->
+
+                <div class="form-group">
+
+                    <label for="stackTrace">
+                        Stack Trace
+                    </label>
+
+                    <textarea
+                        id="stackTrace"
+                        placeholder="Paste the stack trace here..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- ERROR LOGS -->
+
+                <div class="form-group">
+
+                    <label for="errorLogs">
+                        Error Logs
+                    </label>
+
+                    <textarea
+                        id="errorLogs"
+                        placeholder="Paste application error logs here..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- FILE UPLOAD -->
+
+                <div class="form-group">
+
+                    <label for="bugFile">
+                        Upload Log File
+                    </label>
+
+                    <div class="upload-box">
+
+                        <p>
+                            Upload a .txt or .log file
+                        </p>
+
+                        <input
+                            type="file"
+                            id="bugFile"
+                            accept=".txt,.log"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+                    Analyze Bug
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =========================
+                 RESULT
+            ========================= -->
+
+            <div
+                id="resultBox"
+                class="result-box"
+            >
+
+
+                <h3>
+                    Bug Submitted Successfully ✓
+                </h3>
+
+
+                <!-- BUG ID -->
+
+                <p>
+
+                    <strong>
+                        Bug ID:
+                    </strong>
+
+                    <span id="bugId">
+                        -
+                    </span>
+
+                </p>
+
+
+
+                <!-- SEVERITY -->
+
+                <p>
+
+                    <strong>
+                        Severity:
+                    </strong>
+
+                    <span id="severity">
+                        -
+                    </span>
+
+                </p>
+
+
+
+                <!-- PRIORITY -->
+
+                <p>
+
+                    <strong>
+                        Priority:
+                    </strong>
+
+                    <span id="priority">
+                        -
+                    </span>
+
+                </p>
+
+
+
+                <!-- COMPONENT -->
+
+                <p>
+
+                    <strong>
+                        Affected Component:
+                    </strong>
+
+                    <span id="component">
+                        -
+                    </span>
+
+                </p>
+
+
+
+                <!-- TRIAGE CONFIDENCE -->
+
+                <p>
+
+                    <strong>
+                        Triage Confidence:
+                    </strong>
+
+                    <span id="confidence">
+                        -
+                    </span>
+
+                </p>
+
+
+
+                <!-- =========================
+                     LOG ANALYSIS
+                ========================= -->
+
+                <div class="analysis-box">
+
+
+                    <h3>
+                        Log Analysis
+                    </h3>
+
+
+
+                    <!-- EXCEPTION -->
+
+                    <p>
+
+                        <strong>
+                            Exception Type:
+                        </strong>
+
+                        <span id="exceptionType">
+                            -
+                        </span>
+
+                    </p>
+
+
+
+                    <!-- ERROR MESSAGE -->
+
+                    <p>
+
+                        <strong>
+                            Error Message:
+                        </strong>
+
+                        <span id="errorMessage">
+                            -
+                        </span>
+
+                    </p>
+
+
+
+                    <!-- FAILURE POINT -->
+
+                    <p>
+
+                        <strong>
+                            Failure Point:
+                        </strong>
+
+                        <span id="failurePoint">
+                            -
+                        </span>
+
+                    </p>
+
+
+
+                    <!-- CODE PATH -->
+
+                    <p>
+
+                        <strong>
+                            Affected Code Path:
+                        </strong>
+
+                        <span id="codePath">
+                            -
+                        </span>
+
+                    </p>
+
+
+
+                    <!-- LOG CONFIDENCE -->
+
+                    <p>
+
+                        <strong>
+                            Analysis Confidence:
+                        </strong>
+
+                        <span id="logConfidence">
+                            -
+                        </span>
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 ERROR BOX
+            ========================= -->
+
+            <div
+                id="errorBox"
+                class="error-box"
+            ></div>
+
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+document
+    .getElementById("bugForm")
+    .addEventListener("submit", async function(event) {
+
+
+        event.preventDefault();
+
+
+        /* =========================
+           GET FORM VALUES
+        ========================= */
+
+        const title =
+            document
+                .getElementById("title")
+                .value
+                .trim();
+
+
+        const description =
+            document
+                .getElementById("description")
+                .value
+                .trim();
+
+
+        const stackTrace =
+            document
+                .getElementById("stackTrace")
+                .value
+                .trim();
+
+
+        const errorLogs =
+            document
+                .getElementById("errorLogs")
+                .value
+                .trim();
+
+
+
+        /* =========================
+           ELEMENTS
+        ========================= */
+
+        const submitBtn =
+            document.getElementById("submitBtn");
+
+
+        const resultBox =
+            document.getElementById("resultBox");
+
+
+        const errorBox =
+            document.getElementById("errorBox");
+
+
+
+        /* =========================
+           RESET OLD RESULTS
+        ========================= */
+
+        resultBox.style.display = "none";
+
+        errorBox.style.display = "none";
+
+
+
+        /* =========================
+           BUTTON LOADING
+        ========================= */
+
+        submitBtn.disabled = true;
+
+        submitBtn.innerText =
+            "Analyzing...";
+
+
+
+        /* =========================
+           BUG DATA
+        ========================= */
+
+        const bugData = {
+
+            title: title,
+
+            description: description,
+
+            stack_trace: stackTrace,
+
+            error_logs: errorLogs
+
+        };
+
+
+
+        try {
+
+
+            /* =========================
+               SEND TO FASTAPI
+            ========================= */
+
+            const response =
+                await fetch(
+                    "http://127.0.0.1:8000/bugs",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(bugData)
+                    }
+                );
+
+
+
+            /* =========================
+               READ RESPONSE
+            ========================= */
+
+            const result =
+                await response.json();
+
+
+
+            /* =========================
+               HANDLE ERROR
+            ========================= */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.detail ||
+                    "Bug submission failed."
+                );
+
+            }
+
+
+
+            console.log(
+                "Backend Response:",
+                result
+            );
+
+
+
+            /* =========================
+               SHOW RESULT
+            ========================= */
+
+            resultBox.style.display =
+                "block";
+
+
+
+            /* =========================
+               BUG ID
+            ========================= */
+
+            document
+                .getElementById("bugId")
+                .innerText =
+                    result.id ?? "-";
+
+
+
+            /* =========================
+               TRIAGE RESULT
+            ========================= */
+
+            const triage =
+                result.triage || {};
+
+
+            document
+                .getElementById("severity")
+                .innerText =
+                    triage.severity ?? "-";
+
+
+            document
+                .getElementById("priority")
+                .innerText =
+                    triage.priority ?? "-";
+
+
+            document
+                .getElementById("component")
+                .innerText =
+                    triage.affected_component ?? "-";
+
+
+            document
+                .getElementById("confidence")
+                .innerText =
+                    triage.confidence_score ?? "-";
+
+
+
+            /* =========================
+               LOG ANALYSIS RESULT
+            ========================= */
+
+            const logAnalysis =
+                result.log_analysis || {};
+
+
+
+            document
+                .getElementById("exceptionType")
+                .innerText =
+                    logAnalysis.exception_type ??
+                    "Unknown";
+
+
+            document
+                .getElementById("errorMessage")
+                .innerText =
+                    logAnalysis.error_message ??
+                    "Unable to determine";
+
+
+            document
+                .getElementById("failurePoint")
+                .innerText =
+                    logAnalysis.failure_point ??
+                    "Unable to determine";
+
+
+            document
+                .getElementById("codePath")
+                .innerText =
+                    logAnalysis.affected_code_path ??
+                    "Unable to determine";
+
+
+            document
+                .getElementById("logConfidence")
+                .innerText =
+                    logAnalysis.confidence_score ??
+                    "-";
+
+
+
+            /* =========================
+               RESET FORM
+            ========================= */
+
+            document
+                .getElementById("bugForm")
+                .reset();
+
+
+        }
+
+
+        catch (error) {
+
+
+            console.error(
+                "Connection Error:",
+                error
+            );
+
+
+            errorBox.style.display =
+                "block";
+
+
+
+            if (
+                error.message.includes(
+                    "Failed to fetch"
+                )
+            ) {
+
+                errorBox.innerText =
+                    "Cannot connect to FastAPI backend. Please check that the backend is running and CORS is enabled.";
+
+            }
+
+            else {
+
+                errorBox.innerText =
+                    error.message;
+
+            }
+
+        }
+
+
+
+        /* =========================
+           RESTORE BUTTON
+        ========================= */
+
+        submitBtn.disabled = false;
+
+        submitBtn.innerText =
+            "Analyze Bug";
+
+
+    });
+
+</script>
+
+
+</body>
+
+</html>

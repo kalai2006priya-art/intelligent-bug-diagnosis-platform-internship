@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bug Reports - Intelligent Bug Diagnosis Platform</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <style>
+        .reports-container {
+            padding: 30px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .page-header p {
+            margin-top: 6px;
+            color: #666;
+        }
+
+        .refresh-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .refresh-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th {
+            background: #f5f7fb;
+            text-align: left;
+            padding: 14px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .critical {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .high {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+        .medium {
+            background: #fef3c7;
+            color: #a16207;
+        }
+
+        .low {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .unknown {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .component {
+            color: #374151;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #555;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 30px;
+            color: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            <h2>Bug Diagnosis</h2>
+        </div>
+
+        <ul class="menu">
+
+            <li onclick="goToDashboard()">
+                🏠 Dashboard
+            </li>
+
+            <li onclick="goToSubmitBug()">
+                ➕ Submit New Bug
+            </li>
+
+            <li class="active">
+                🐞 Bug Reports
+            </li>
+
+        </ul>
+
+        <div class="logout" onclick="logout()">
+            🚪 Logout
+        </div>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <div class="reports-container">
+
+            <div class="page-header">
+
+                <div>
+                    <h1>Bug Reports</h1>
+                    <p>
+                        View all submitted bug reports and their analysis results.
+                    </p>
+                </div>
+
+                <button class="refresh-btn" onclick="loadBugReports()">
+                    🔄 Refresh
+                </button>
+
+            </div>
+
+
+            <!-- Reports Table -->
+            <div class="table-card">
+
+                <div id="loadingMessage" class="loading">
+                    Loading bug reports...
+                </div>
+
+                <div id="errorMessage"
+                     class="error-message"
+                     style="display:none;">
+                    Unable to load bug reports.
+                </div>
+
+                <div id="emptyMessage"
+                     class="empty-message"
+                     style="display:none;">
+                    No bug reports found.
+                </div>
+
+                <table id="bugTable" style="display:none;">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Bug Title</th>
+                            <th>Severity</th>
+                            <th>Priority</th>
+                            <th>Affected Component</th>
+                            <th>Confidence</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="bugTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const API_URL = "http://127.0.0.1:8000";
+
+
+        function goToDashboard() {
+            window.location.href = "dashboard.html";
+        }
+
+
+        function goToSubmitBug() {
+            window.location.href = "submit-bug.html";
+        }
+
+
+        function logout() {
+            window.location.href = "index.html";
+        }
+
+
+        function getSeverityClass(value) {
+
+            if (!value) {
+                return "unknown";
+            }
+
+            return value.toLowerCase().replace(/\s+/g, "-");
+        }
+
+
+        function loadBugReports() {
+
+            const loadingMessage =
+                document.getElementById("loadingMessage");
+
+            const errorMessage =
+                document.getElementById("errorMessage");
+
+            const emptyMessage =
+                document.getElementById("emptyMessage");
+
+            const bugTable =
+                document.getElementById("bugTable");
+
+            const tableBody =
+                document.getElementById("bugTableBody");
+
+
+            loadingMessage.style.display = "block";
+            errorMessage.style.display = "none";
+            emptyMessage.style.display = "none";
+            bugTable.style.display = "none";
+
+            tableBody.innerHTML = "";
+
+
+            fetch(`${API_URL}/bugs`)
+
+                .then(response => {
+
+                    if (!response.ok) {
+                        throw new Error(
+                            "Failed to fetch bug reports"
+                        );
+                    }
+
+                    return response.json();
+
+                })
+
+
+                .then(data => {
+
+                    loadingMessage.style.display = "none";
+
+
+                    /*
+                     Backend response format:
+
+                     {
+                         "total_bugs": 72,
+                         "bugs": [...]
+                     }
+
+                     Therefore we use data.bugs
+                    */
+
+                    if (
+                        !data ||
+                        !data.bugs ||
+                        data.bugs.length === 0
+                    ) {
+
+                        emptyMessage.style.display = "block";
+                        return;
+
+                    }
+
+
+                    /*
+                     Show latest bug first.
+                     slice() prevents changing original array.
+                    */
+
+                    data.bugs
+                        .slice()
+                        .reverse()
+                        .forEach(bug => {
+
+
+                            const row =
+                                document.createElement("tr");
+
+
+                            /*
+                             Triage result is inside:
+
+                             bug
+                              └── agent_context
+                                   └── triage
+                            */
+
+                            const triage =
+                                bug.agent_context?.triage || {};
+
+
+                            const severity =
+                                triage.severity || "Unknown";
+
+
+                            const priority =
+                                triage.priority || "Unknown";
+
+
+                            const component =
+                                triage.affected_component || "Unknown";
+
+
+                            const confidence =
+                                triage.confidence_score != null
+                                    ? (
+                                        triage.confidence_score * 100
+                                      ).toFixed(0) + "%"
+                                    : "N/A";
+
+
+                            let createdAt = "N/A";
+
+
+                            if (bug.created_at) {
+
+                                createdAt =
+                                    new Date(
+                                        bug.created_at
+                                    ).toLocaleString();
+
+                            }
+
+
+                            row.innerHTML = `
+
+                                <td>
+                                    #${bug.id}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        ${bug.title || "Untitled Bug"}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    <span class="badge ${getSeverityClass(severity)}">
+                                        ${severity}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="badge ${getSeverityClass(priority)}">
+                                        ${priority}
+                                    </span>
+                                </td>
+
+                                <td class="component">
+                                    ${component}
+                                </td>
+
+                                <td>
+                                    ${confidence}
+                                </td>
+
+                                <td>
+                                    ${createdAt}
+                                </td>
+
+                            `;
+
+
+                            tableBody.appendChild(row);
+
+                        });
+
+
+                    bugTable.style.display = "table";
+
+                })
+
+
+                .catch(error => {
+
+                    console.error(
+                        "Error loading bug reports:",
+                        error
+                    );
+
+                    loadingMessage.style.display = "none";
+
+                    errorMessage.style.display = "block";
+
+                });
+
+        }
+
+
+        // Load bug reports when page opens
+        loadBugReports();
+
+    </script>
+
+</body>
+</html>

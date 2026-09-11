@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Diagnosis Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <div class="sidebar">
+            <div class="logo">
+                🐞 BugDiag AI
+            </div>
+
+            <nav>
+                <a class="active">📊 Dashboard</a>
+                <a>🐞 Submit Bug</a>
+                <a>📋 Bug Reports</a>
+                <a>🔍 Analysis</a>
+            </nav>
+
+            <div class="logout">
+                <a href="index.html">↪ Logout</a>
+            </div>
+        </div>
+
+
+        <div class="main-content">
+
+        <header>
+            <div>
+                <h1>Dashboard</h1>
+                <p>Intelligent Bug Diagnosis Platform</p>
+            </div>
+
+            <div class="user">
+                👤 Kalaipriya
+            </div>
+        </header>
+
+
+        <section class="welcome">
+            <h2>Welcome back, Kalaipriya 👋</h2>
+            <p>
+                Analyze bugs using intelligent triage and log analysis.
+            </p>
+        </section>
+
+
+        <section class="cards">
+
+            <div class="card">
+                <div class="card-icon">🐞</div>
+                <div>
+                    <h3>12</h3>
+                    <p>Total Bugs</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔴</div>
+                <div>
+                    <h3>3</h3>
+                    <p>Critical Bugs</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔍</div>
+                <div>
+                    <h3>9</h3>
+                    <p>Analyzed</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <div>
+                    <h3>2</h3>
+                    <p>AI Agents</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="quick-section">
+
+            <div class="quick-card">
+
+                <h2>Submit a New Bug</h2>
+
+                <p>
+                    Enter a bug description, stack trace or error log
+                    for automated analysis.
+                </p>
+
+                <button onclick="submitBug()">
+                    + Submit New Bug
+                </button>
+
+            </div>
+
+
+            <div class="quick-card">
+
+                <h2>AI Analysis</h2>
+
+                <div class="agent">
+                    <span>🎯 Triage Agent</span>
+                    <span class="status">Ready</span>
+                </div>
+
+                <div class="agent">
+                    <span>📄 Log Analysis Agent</span>
+                    <span class="status">Ready</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="recent">
+
+            <h2>Recent Bug Reports</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Bug</th>
+                        <th>Severity</th>
+                        <th>Component</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>NullPointerException in LoginService</td>
+                        <td><span class="high">High</span></td>
+                        <td>Authentication</td>
+                        <td><span class="analyzed">Analyzed</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Database connection failure</td>
+                        <td><span class="medium">Medium</span></td>
+                        <td>Database</td>
+                        <td><span class="analyzed">Analyzed</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>File upload failure</td>
+                        <td><span class="medium">Medium</span></td>
+                        <td>File Handling</td>
+                        <td><span class="pending">Pending</span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function submitBug() {
+            window.location.href = "submit-bug.html";
+        }
+    </script>
+
+</body>
+</html>

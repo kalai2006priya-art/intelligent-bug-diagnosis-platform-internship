@@ -1,15 +1,38 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 from pydantic import BaseModel
+
 import json
 from pathlib import Path
 from datetime import datetime
 import re
 
 
+# =========================
+# FASTAPI APPLICATION
+# =========================
+
 app = FastAPI(
     title="Intelligent Bug Diagnosis Platform",
     description="Backend API for bug submission and diagnosis",
     version="1.0.0"
+)
+
+
+# =========================
+# CORS CONFIGURATION
+# =========================
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5500",
+        "http://localhost:5500"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -56,6 +79,7 @@ class LogAnalysisResult(BaseModel):
 # =========================
 
 def load_bug_reports():
+
     if not BUG_FILE.exists():
         return []
 
@@ -68,6 +92,7 @@ def load_bug_reports():
 # =========================
 
 def save_bug_reports(reports):
+
     with open(BUG_FILE, "w", encoding="utf-8") as file:
         json.dump(reports, file, indent=4)
 
@@ -78,6 +103,7 @@ def save_bug_reports(reports):
 
 @app.get("/")
 def root():
+
     return {
         "message": "Intelligent Bug Diagnosis Platform API is running"
     }
@@ -89,6 +115,7 @@ def root():
 
 @app.get("/health")
 def health_check():
+
     return {
         "status": "healthy"
     }
@@ -107,6 +134,7 @@ def triage_agent(bug: BugReport):
         bug.error_logs
     ).lower()
 
+
     severity = "Low"
     priority = "Low"
     affected_component = "Unknown"
@@ -116,14 +144,20 @@ def triage_agent(bug: BugReport):
         "The bug information indicates a low-impact issue."
     )
 
-    # Critical bugs
+
+    # =========================
+    # CRITICAL BUGS
+    # =========================
+
     if any(keyword in text for keyword in [
+
         "system crash",
         "data loss",
         "security breach",
         "production down",
         "server down",
         "database corruption"
+
     ]):
 
         severity = "Critical"
@@ -135,14 +169,20 @@ def triage_agent(bug: BugReport):
             "such as system failure, data loss, or production outage."
         )
 
-    # High severity bugs
+
+    # =========================
+    # HIGH SEVERITY BUGS
+    # =========================
+
     elif any(keyword in text for keyword in [
+
         "nullpointerexception",
         "outofmemoryerror",
         "fatal error",
         "service unavailable",
         "application crash",
         "crash"
+
     ]):
 
         severity = "High"
@@ -154,14 +194,20 @@ def triage_agent(bug: BugReport):
             "significantly affect application execution."
         )
 
-    # Medium severity bugs
+
+    # =========================
+    # MEDIUM SEVERITY BUGS
+    # =========================
+
     elif any(keyword in text for keyword in [
+
         "exception",
         "error",
         "failed",
         "failure",
         "timeout",
         "incorrect"
+
     ]):
 
         severity = "Medium"
@@ -173,60 +219,84 @@ def triage_agent(bug: BugReport):
             "may affect a specific functionality."
         )
 
-    # Component detection
+
+    # =========================
+    # COMPONENT DETECTION
+    # =========================
+
     if any(keyword in text for keyword in [
+
         "login",
         "authentication",
         "password",
         "signin",
         "sign in"
+
     ]):
 
         affected_component = "Authentication / Login"
 
+
     elif any(keyword in text for keyword in [
+
         "database",
         "sql",
         "query",
         "postgresql",
         "mysql"
+
     ]):
 
         affected_component = "Database"
 
+
     elif any(keyword in text for keyword in [
+
         "api",
         "endpoint",
         "http",
         "request",
         "response"
+
     ]):
 
         affected_component = "API / Backend"
 
+
     elif any(keyword in text for keyword in [
+
         "ui",
         "button",
         "screen",
         "frontend",
         "display"
+
     ]):
 
         affected_component = "User Interface"
 
+
     elif any(keyword in text for keyword in [
+
         "file",
         "upload",
         "download"
+
     ]):
 
         affected_component = "File Handling"
 
+
     return TriageResult(
+
         severity=severity,
+
         priority=priority,
+
         affected_component=affected_component,
+
         confidence_score=confidence_score,
+
         reasoning=reasoning
     )
 
@@ -243,90 +313,130 @@ def log_analysis_agent(bug: BugReport):
         bug.description
     )
 
+
     exception_type = "Unknown"
     error_message = "Unable to determine"
     failure_point = "Unable to determine"
     affected_code_path = "Unable to determine"
     confidence_score = 0.50
 
-    # ---------------------------------
-    # Detect exception / error type
-    # ---------------------------------
+
+    # =========================
+    # DETECT EXCEPTION / ERROR
+    # =========================
 
     exception_patterns = [
+
         r"([A-Za-z][A-Za-z0-9_]*Exception)",
         r"([A-Za-z][A-Za-z0-9_]*Error)"
+
     ]
+
 
     for pattern in exception_patterns:
 
         match = re.search(pattern, log_text)
 
         if match:
+
             exception_type = match.group(1)
+
             confidence_score = 0.90
+
             break
 
-    # ---------------------------------
-    # Extract error message
-    # ---------------------------------
+
+    # =========================
+    # EXTRACT ERROR MESSAGE
+    # =========================
 
     error_message_patterns = [
+
         r"(?:ERROR|Error|error)\s*:\s*(.+)",
         r"(?:Exception|Error)\s*:\s*(.+)",
         r"(?:message|Message)\s*:\s*(.+)"
+
     ]
+
 
     for pattern in error_message_patterns:
 
         match = re.search(pattern, log_text)
 
         if match:
+
             error_message = match.group(1).strip()
+
             break
 
-    # If no explicit error message is found,
-    # use the first line containing the exception type
-    if error_message == "Unable to determine" and exception_type != "Unknown":
+
+    # If no explicit error message is found
+
+    if (
+        error_message == "Unable to determine"
+        and exception_type != "Unknown"
+    ):
 
         for line in log_text.splitlines():
 
             if exception_type in line:
 
                 error_message = line.strip()
+
                 break
 
-    # ---------------------------------
-    # Detect failure point
-    # ---------------------------------
 
-    line_pattern = r"at\s+([A-Za-z0-9_.$]+)\(([^)]*)\)"
+    # =========================
+    # DETECT FAILURE POINT
+    # =========================
+
+    line_pattern = (
+        r"at\s+([A-Za-z0-9_.$]+)\(([^)]*)\)"
+    )
+
 
     match = re.search(line_pattern, log_text)
+
 
     if match:
 
         method_name = match.group(1)
+
         location = match.group(2)
 
-        failure_point = f"{method_name}({location})"
+        failure_point = (
+            f"{method_name}({location})"
+        )
+
         affected_code_path = method_name
 
-        confidence_score = max(confidence_score, 0.90)
+        confidence_score = max(
+            confidence_score,
+            0.90
+        )
+
 
     else:
 
-        # Alternative Java stack trace format
-        alternative_pattern = r"at\s+([A-Za-z0-9_.$]+):(\d+)"
+        # =========================
+        # ALTERNATIVE STACK TRACE
+        # =========================
+
+        alternative_pattern = (
+            r"at\s+([A-Za-z0-9_.$]+):(\d+)"
+        )
+
 
         match = re.search(
             alternative_pattern,
             log_text
         )
 
+
         if match:
 
             method_name = match.group(1)
+
             line_number = match.group(2)
 
             failure_point = (
@@ -335,108 +445,186 @@ def log_analysis_agent(bug: BugReport):
 
             affected_code_path = method_name
 
-            confidence_score = max(confidence_score, 0.85)
+            confidence_score = max(
+                confidence_score,
+                0.85
+            )
+
 
         else:
 
-            # ---------------------------------
-            # Fallback code path detection
-            # ---------------------------------
+            # =========================
+            # FALLBACK CODE PATH
+            # =========================
 
             text = log_text.lower()
 
-            if "login" in text or "authentication" in text:
+
+            if (
+                "login" in text
+                or "authentication" in text
+            ):
 
                 affected_code_path = (
                     "Authentication / Login flow"
                 )
 
-                confidence_score = max(confidence_score, 0.75)
+                confidence_score = max(
+                    confidence_score,
+                    0.75
+                )
 
-            elif "database" in text or "sql" in text:
+
+            elif (
+                "database" in text
+                or "sql" in text
+            ):
 
                 affected_code_path = (
                     "Database access flow"
                 )
 
-                confidence_score = max(confidence_score, 0.75)
+                confidence_score = max(
+                    confidence_score,
+                    0.75
+                )
 
-            elif "api" in text or "endpoint" in text:
+
+            elif (
+                "api" in text
+                or "endpoint" in text
+            ):
 
                 affected_code_path = (
                     "API / Backend request flow"
                 )
 
-                confidence_score = max(confidence_score, 0.75)
+                confidence_score = max(
+                    confidence_score,
+                    0.75
+                )
 
-            elif "file" in text or "upload" in text:
+
+            elif (
+                "file" in text
+                or "upload" in text
+            ):
 
                 affected_code_path = (
                     "File handling flow"
                 )
 
-                confidence_score = max(confidence_score, 0.75)
+                confidence_score = max(
+                    confidence_score,
+                    0.75
+                )
 
-    # ---------------------------------
-    # Adjust confidence for incomplete data
-    # ---------------------------------
+
+    # =========================
+    # ADJUST CONFIDENCE
+    # =========================
 
     if exception_type == "Unknown":
-        confidence_score = min(confidence_score, 0.50)
+
+        confidence_score = min(
+            confidence_score,
+            0.50
+        )
+
 
     elif failure_point == "Unable to determine":
-        confidence_score = min(confidence_score, 0.70)
+
+        confidence_score = min(
+            confidence_score,
+            0.70
+        )
+
 
     if error_message == "Unable to determine":
-        confidence_score = min(confidence_score, 0.75)
+
+        confidence_score = min(
+            confidence_score,
+            0.75
+        )
+
 
     return LogAnalysisResult(
+
         exception_type=exception_type,
+
         error_message=error_message,
+
         failure_point=failure_point,
+
         affected_code_path=affected_code_path,
-        confidence_score=round(confidence_score, 2)
+
+        confidence_score=round(
+            confidence_score,
+            2
+        )
     )
 
 
 # =========================
-# SUBMIT BUG + MULTI-AGENT ORCHESTRATION
+# SUBMIT BUG
+# MULTI-AGENT ORCHESTRATION
 # =========================
 
 @app.post("/bugs")
 def submit_bug(bug: BugReport):
 
-    # ---------------------------------
-    # Validate input
-    # ---------------------------------
+
+    # =========================
+    # VALIDATE INPUT
+    # =========================
 
     if not bug.title.strip():
+
         raise HTTPException(
+
             status_code=400,
+
             detail="Bug title cannot be empty."
         )
 
+
     if not bug.description.strip():
+
         raise HTTPException(
+
             status_code=400,
+
             detail="Bug description cannot be empty."
         )
 
+
     reports = load_bug_reports()
 
-    # Create bug record
+
+    # =========================
+    # CREATE BUG RECORD
+    # =========================
+
     new_bug = {
+
         "id": len(reports) + 1,
+
         "title": bug.title,
+
         "description": bug.description,
+
         "stack_trace": bug.stack_trace,
+
         "error_logs": bug.error_logs,
+
         "created_at": datetime.now().isoformat()
     }
 
-    # -------------------------
-    # STEP 1: RUN TRIAGE AGENT
-    # -------------------------
+
+    # =========================
+    # STEP 1
+    # TRIAGE AGENT
+    # =========================
 
     try:
 
@@ -445,13 +633,17 @@ def submit_bug(bug: BugReport):
     except Exception as error:
 
         raise HTTPException(
+
             status_code=500,
+
             detail=f"Triage Agent failed: {str(error)}"
         )
 
-    # -------------------------
-    # STEP 2: RUN LOG ANALYSIS AGENT
-    # -------------------------
+
+    # =========================
+    # STEP 2
+    # LOG ANALYSIS AGENT
+    # =========================
 
     try:
 
@@ -460,30 +652,61 @@ def submit_bug(bug: BugReport):
     except Exception as error:
 
         raise HTTPException(
+
             status_code=500,
+
             detail=f"Log Analysis Agent failed: {str(error)}"
         )
 
-    # -------------------------
-    # STEP 3: COMBINE AGENT OUTPUTS
-    # -------------------------
+
+    # =========================
+    # STEP 3
+    # COMBINE AGENT OUTPUTS
+    # =========================
 
     combined_context = {
+
         "triage": triage_result.model_dump(),
+
         "log_analysis": log_analysis_result.model_dump()
     }
 
-    # Store combined context
+
+    # Store agent context
+
     new_bug["agent_context"] = combined_context
 
-    # Save bug
+
+    # =========================
+    # SAVE BUG
+    # =========================
+
     reports.append(new_bug)
+
     save_bug_reports(reports)
 
-    # Return result
+
+    # =========================
+    # RETURN RESPONSE
+    # =========================
+
     return {
+
         "message": "Bug submitted and analyzed successfully",
+
+        # Direct ID for frontend
+        "id": new_bug["id"],
+
+        # Direct triage result for frontend
+        "triage": triage_result.model_dump(),
+
+        # Direct log analysis result for frontend
+        "log_analysis": log_analysis_result.model_dump(),
+
+        # Complete bug information
         "bug": new_bug,
+
+        # Combined agent context
         "agent_context": combined_context
     }
 
@@ -498,7 +721,9 @@ def get_bugs():
     reports = load_bug_reports()
 
     return {
+
         "total_bugs": len(reports),
+
         "bugs": reports
     }
 
@@ -512,52 +737,81 @@ async def upload_bug_file(
     file: UploadFile = File(...)
 ):
 
-    allowed_extensions = [".txt", ".log"]
+
+    allowed_extensions = [
+        ".txt",
+        ".log"
+    ]
+
 
     filename = file.filename or ""
 
     file_extension = ""
 
+
     if "." in filename:
 
         file_extension = (
+
             "." +
-            filename.rsplit(".", 1)[1].lower()
+
+            filename.rsplit(
+                ".",
+                1
+            )[1].lower()
         )
+
 
     if file_extension not in allowed_extensions:
 
         raise HTTPException(
+
             status_code=400,
+
             detail="Only .txt and .log files are allowed."
         )
 
+
     file_content = await file.read()
 
+
     max_file_size = 2 * 1024 * 1024
+
 
     if len(file_content) > max_file_size:
 
         raise HTTPException(
+
             status_code=400,
+
             detail="File size must be less than 2 MB."
         )
 
+
     try:
 
-        text_content = file_content.decode("utf-8")
+        text_content = file_content.decode(
+            "utf-8"
+        )
 
     except UnicodeDecodeError:
 
         raise HTTPException(
+
             status_code=400,
+
             detail="File must contain readable UTF-8 text."
         )
 
+
     return {
+
         "message": "Bug file uploaded successfully",
+
         "filename": file.filename,
+
         "content_type": file.content_type,
+
         "content": text_content
     }
 
@@ -570,7 +824,9 @@ async def upload_bug_file(
     "/bugs/triage",
     response_model=TriageResult
 )
-def analyze_bug_triage(bug: BugReport):
+def analyze_bug_triage(
+    bug: BugReport
+):
 
     result = triage_agent(bug)
 
@@ -585,7 +841,9 @@ def analyze_bug_triage(bug: BugReport):
     "/bugs/log-analysis",
     response_model=LogAnalysisResult
 )
-def analyze_bug_logs(bug: BugReport):
+def analyze_bug_logs(
+    bug: BugReport
+):
 
     result = log_analysis_agent(bug)
 

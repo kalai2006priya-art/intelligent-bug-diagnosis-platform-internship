@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Bug Analysis</title>
+
+    <link rel="stylesheet"
+        href="dashboard.css">
+
+    <style>
+
+        .analysis-container {
+            padding: 30px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #777;
+        }
+
+        .analysis-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .analysis-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .info-box {
+            background: #f7f8fa;
+            padding: 16px;
+            border-radius: 10px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 7px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .confidence {
+            font-weight: 600;
+        }
+
+        .reasoning {
+            background: #f7f8fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        .bug-content {
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .match-item {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #eef2ff;
+        }
+
+        .recommendation {
+            background: #f7f8fa;
+            border-left: 4px solid #555;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .evidence {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #777;
+        }
+
+        .error-message {
+            background: #fff0f0;
+            padding: 20px;
+            border-radius: 10px;
+            color: #b00020;
+        }
+
+        @media (max-width: 1000px) {
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analysis-container {
+                padding: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="analysis-container">
+
+    <!-- ================================================= -->
+    <!-- PAGE HEADER -->
+    <!-- ================================================= -->
+
+    <div class="page-header">
+
+        <h1>Intelligent Bug Analysis</h1>
+
+        <p>
+            Multi-agent diagnosis and fix recommendation report
+        </p>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- LOADING -->
+    <!-- ================================================= -->
+
+    <div id="loading"
+         class="loading">
+
+        Analysing bug using AI agents...
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ERROR -->
+    <!-- ================================================= -->
+
+    <div id="error"
+         class="error-message"
+         style="display:none;">
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- ANALYSIS CONTENT -->
+    <!-- ================================================= -->
+
+    <div id="analysisContent"
+         style="display:none;">
+
+
+        <!-- ============================================= -->
+        <!-- ORIGINAL BUG -->
+        <!-- ============================================= -->
+
+        <div class="analysis-card">
+
+            <h2>Original Bug Report</h2>
+
+            <div id="bugDetails"
+                 class="bug-content">
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- TRIAGE -->
+        <!-- ============================================= -->
+
+        <div class="analysis-card">
+
+            <h2>Triage Analysis</h2>
+
+            <div class="grid">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Severity
+                    </div>
+
+                    <div id="severity"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Priority
+                    </div>
+
+                    <div id="priority"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Affected Component
+                    </div>
+
+                    <div id="component"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Confidence
+                    </div>
+
+                    <div id="triageConfidence"
+                         class="info-value confidence">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="triageReasoning"
+                 class="reasoning">
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- LOG ANALYSIS -->
+        <!-- ============================================= -->
+
+        <div class="analysis-card">
+
+            <h2>Log Analysis</h2>
+
+            <div class="grid">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Exception / Error Type
+                    </div>
+
+                    <div id="exceptionType"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Error Message
+                    </div>
+
+                    <div id="errorMessage"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Failure Point
+                    </div>
+
+                    <div id="failurePoint"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Code Path
+                    </div>
+
+                    <div id="codePath"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="reasoning">
+
+                Confidence:
+                <strong id="logConfidence"></strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- ROOT CAUSE -->
+        <!-- ============================================= -->
+
+        <div class="analysis-card">
+
+            <h2>Root Cause Analysis</h2>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Root Cause Hypothesis
+                </div>
+
+                <div id="rootCause"
+                     class="info-value">
+                </div>
+
+            </div>
+
+
+            <div class="reasoning">
+
+                <strong>Evidence Status:</strong>
+
+                <span id="rootEvidenceStatus">
+                </span>
+
+                <br><br>
+
+                <strong>Confidence:</strong>
+
+                <span id="rootConfidence">
+                </span>
+
+            </div>
+
+
+            <h3>
+                Supporting Historical Evidence
+            </h3>
+
+            <div id="rootEvidence">
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- DUPLICATE DETECTION -->
+        <!-- ============================================= -->
+
+        <div class="analysis-card">
+
+            <h2>Duplicate Detection</h2>
+
+            <div class="grid">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Status
+                    </div>
+
+                    <div id="duplicateStatus"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Confidence
+                    </div>
+
+                    <div id="duplicateConfidence"
+                         class="info-value">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="duplicateReasoning"
+                 class="reasoning">
+            </div>
+
+
+            <h3>
+                Matching Bugs
+            </h3>
+
+            <div id="matchingBugs">
+            </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- REMEDIATION -->
+        <!-- ============================================= -->
+
+        <div class="analysis-card">
+
+            <h2>Recommended Fix</h2>
+
+            <div class="reasoning">
+
+                <strong>Evidence Status:</strong>
+
+                <span id="remediationEvidenceStatus">
+                </span>
+
+                <br><br>
+
+                <strong>Overall Confidence:</strong>
+
+                <span id="remediationConfidence">
+                </span>
+
+            </div>
+
+
+            <div id="recommendations">
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+const API_URL = "http://127.0.0.1:8000";
+
+
+function getData() {
+
+    const storedData =
+        sessionStorage.getItem("bugAnalysis");
+
+    if (!storedData) {
+
+        showError(
+            "No bug analysis data found. Please submit a bug first."
+        );
+
+        return null;
+    }
+
+    try {
+
+        return JSON.parse(storedData);
+
+    } catch (error) {
+
+        showError(
+            "Unable to read bug analysis data."
+        );
+
+        return null;
+    }
+}
+
+
+function formatConfidence(value) {
+
+    if (value === undefined || value === null) {
+
+        return "N/A";
+    }
+
+    return (
+        (Number(value) * 100).toFixed(1)
+        + "%"
+    );
+}
+
+
+function showError(message) {
+
+    document.getElementById(
+        "loading"
+    ).style.display = "none";
+
+    const errorBox =
+        document.getElementById("error");
+
+    errorBox.style.display = "block";
+
+    errorBox.textContent = message;
+}
+
+
+function createMatchHTML(match) {
+
+    return `
+
+        <div class="match-item">
+
+            <div class="match-header">
+
+                <strong>
+                    Bug ID: ${match.bug_id || "Unknown"}
+                </strong>
+
+                <span class="status-badge">
+
+                    ${match.classification || "Unknown"}
+
+                </span>
+
+            </div>
+
+            <div>
+                <strong>Similarity:</strong>
+                ${formatConfidence(match.similarity_score)}
+            </div>
+
+            <div>
+                <strong>Source:</strong>
+                ${match.source || "Unknown"}
+            </div>
+
+            <div>
+                <strong>Component:</strong>
+                ${match.component || "Unknown"}
+            </div>
+
+            <div>
+                <strong>Exception/Error:</strong>
+                ${match.exception_or_error || "Unknown"}
+            </div>
+
+            <p>
+                ${match.summary || "No summary available"}
+            </p>
+
+            <div class="evidence">
+
+                <strong>Why this match:</strong>
+
+                ${match.reason || "Semantic similarity match"}
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+function createRecommendationHTML(item) {
+
+    return `
+
+        <div class="recommendation">
+
+            <div class="recommendation-title">
+
+                ${item.recommendation || "Recommendation"}
+
+            </div>
+
+            <div>
+
+                ${item.implementation_guidance || ""}
+
+            </div>
+
+            <div class="evidence">
+
+                <strong>Evidence Type:</strong>
+
+                ${item.evidence_type || "Unknown"}
+
+                <br>
+
+                <strong>Confidence:</strong>
+
+                ${formatConfidence(item.confidence_score)}
+
+                ${
+                    item.reference_bug_id
+                    ?
+                    `<br>
+                    <strong>Reference Bug:</strong>
+                    ${item.reference_bug_id}`
+                    :
+                    ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+function displayAnalysis(data) {
+
+    const bug =
+        data.bug || {};
+
+    const triage =
+        data.triage || {};
+
+    const logAnalysis =
+        data.log_analysis || {};
+
+    const rootCause =
+        data.root_cause || {};
+
+    const duplicate =
+        data.duplicate_detection || {};
+
+    const remediation =
+        data.remediation || {};
+
+
+    // =====================================================
+    // ORIGINAL BUG
+    // =====================================================
+
+    document.getElementById(
+        "bugDetails"
+    ).innerHTML = `
+
+        <strong>Bug ID:</strong>
+        ${data.id || "N/A"}
+
+        <br><br>
+
+        <strong>Title:</strong>
+        ${bug.title || "N/A"}
+
+        <br><br>
+
+        <strong>Description:</strong>
+        ${bug.description || "N/A"}
+
+        <br><br>
+
+        <strong>Stack Trace:</strong>
+
+        <br>
+
+        ${bug.stack_trace || "Not provided"}
+
+        <br><br>
+
+        <strong>Error Logs:</strong>
+
+        <br>
+
+        ${bug.error_logs || "Not provided"}
+
+    `;
+
+
+    // =====================================================
+    // TRIAGE
+    // =====================================================
+
+    document.getElementById(
+        "severity"
+    ).textContent =
+        triage.severity || "Unknown";
+
+    document.getElementById(
+        "priority"
+    ).textContent =
+        triage.priority || "Unknown";
+
+    document.getElementById(
+        "component"
+    ).textContent =
+        triage.affected_component || "Unknown";
+
+    document.getElementById(
+        "triageConfidence"
+    ).textContent =
+        formatConfidence(
+            triage.confidence_score
+        );
+
+    document.getElementById(
+        "triageReasoning"
+    ).textContent =
+        triage.reasoning ||
+        "No reasoning available";
+
+
+    // =====================================================
+    // LOG ANALYSIS
+    // =====================================================
+
+    document.getElementById(
+        "exceptionType"
+    ).textContent =
+        logAnalysis.exception_type || "Unknown";
+
+    document.getElementById(
+        "errorMessage"
+    ).textContent =
+        logAnalysis.error_message || "Unknown";
+
+    document.getElementById(
+        "failurePoint"
+    ).textContent =
+        logAnalysis.failure_point || "Unknown";
+
+    document.getElementById(
+        "codePath"
+    ).textContent =
+        logAnalysis.affected_code_path || "Unknown";
+
+    document.getElementById(
+        "logConfidence"
+    ).textContent =
+        formatConfidence(
+            logAnalysis.confidence_score
+        );
+
+
+    // =====================================================
+    // ROOT CAUSE
+    // =====================================================
+
+    document.getElementById(
+        "rootCause"
+    ).textContent =
+        rootCause.root_cause_hypothesis ||
+        "Insufficient evidence";
+
+    document.getElementById(
+        "rootEvidenceStatus"
+    ).textContent =
+        rootCause.evidence_status ||
+        "Insufficient evidence";
+
+    document.getElementById(
+        "rootConfidence"
+    ).textContent =
+        formatConfidence(
+            rootCause.confidence_score
+        );
+
+
+    const evidence =
+        rootCause.supporting_evidence ||
+        rootCause.evidence ||
+        rootCause.retrieved_historical_defects ||
+        [];
+
+    if (Array.isArray(evidence) && evidence.length > 0) {
+
+        document.getElementById(
+            "rootEvidence"
+        ).innerHTML =
+            evidence.map(
+                item => `
+
+                <div class="match-item">
+
+                    <strong>
+                        ${item.bug_id || "Historical Bug"}
+                    </strong>
+
+                    <p>
+                        ${item.summary ||
+                          item.description ||
+                          item.text ||
+                          "Historical evidence"}
+                    </p>
+
+                    ${
+                        item.similarity_score !== undefined
+                        ?
+                        `<div class="evidence">
+                            Similarity:
+                            ${formatConfidence(
+                                item.similarity_score
+                            )}
+                        </div>`
+                        :
+                        ""
+                    }
+
+                </div>
+
+                `
+            ).join("");
+
+    } else {
+
+        document.getElementById(
+            "rootEvidence"
+        ).innerHTML =
+            `<div class="reasoning">
+                No supporting historical evidence available.
+            </div>`;
+    }
+
+
+    // =====================================================
+    // DUPLICATE DETECTION
+    // =====================================================
+
+    document.getElementById(
+        "duplicateStatus"
+    ).textContent =
+        duplicate.status ||
+        "New-Unmatched";
+
+    document.getElementById(
+        "duplicateConfidence"
+    ).textContent =
+        formatConfidence(
+            duplicate.confidence_score
+        );
+
+    document.getElementById(
+        "duplicateReasoning"
+    ).textContent =
+        duplicate.reasoning ||
+        "No duplicate reasoning available";
+
+
+    const matches =
+        duplicate.matching_bugs || [];
+
+
+    if (matches.length > 0) {
+
+        document.getElementById(
+            "matchingBugs"
+        ).innerHTML =
+            matches.map(
+                createMatchHTML
+            ).join("");
+
+    } else {
+
+        document.getElementById(
+            "matchingBugs"
+        ).innerHTML =
+            `<div class="reasoning">
+                No matching bugs found.
+            </div>`;
+    }
+
+
+    // =====================================================
+    // REMEDIATION
+    // =====================================================
+
+    document.getElementById(
+        "remediationEvidenceStatus"
+    ).textContent =
+        remediation.evidence_status ||
+        "Insufficient evidence";
+
+    document.getElementById(
+        "remediationConfidence"
+    ).textContent =
+        formatConfidence(
+            remediation.confidence_score
+        );
+
+
+    const recommendations =
+        remediation.recommendations || [];
+
+
+    if (recommendations.length > 0) {
+
+        document.getElementById(
+            "recommendations"
+        ).innerHTML =
+            recommendations.map(
+                createRecommendationHTML
+            ).join("");
+
+    } else {
+
+        document.getElementById(
+            "recommendations"
+        ).innerHTML =
+            `<div class="reasoning">
+                No remediation recommendation available.
+            </div>`;
+    }
+
+
+    // =====================================================
+    // SHOW CONTENT
+    // =====================================================
+
+    document.getElementById(
+        "loading"
+    ).style.display = "none";
+
+    document.getElementById(
+        "analysisContent"
+    ).style.display = "block";
+}
+
+
+async function loadAnalysis() {
+
+    const storedData = getData();
+
+    if (!storedData) {
+        return;
+    }
+
+    displayAnalysis(
+        storedData
+    );
+}
+
+
+loadAnalysis();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,83 +1,124 @@
-# Historical Defect Knowledge Base Schema
+# Historical Defect Knowledge Base Schema Specification
 
-The Historical Defect Knowledge Base stores information from previously reported software defects.
+## 1. Overview
+The Historical Defect Knowledge Base stores cleaned, normalized, and chunked defects from public repositories (**Mozilla**, **Apache**, and **Eclipse**). Each record supports both relational storage and semantic vector embeddings in ChromaDB.
 
-The knowledge base will support semantic retrieval, duplicate detection, root cause analysis, and fix recommendation.
+---
 
-## Historical Defect Record
+## 2. Standardized Historical Defect Record Schema
 
-| Field | Description |
-|---|---|
-| Defect ID | Unique identifier of the historical defect |
-| Source | Original dataset or project source |
-| Project | Software project associated with the defect |
-| Component | Software component affected |
-| Summary | Short description of the defect |
-| Description | Detailed defect description |
-| Steps to Reproduce | Steps used to reproduce the defect |
-| Stack Trace | Available execution or error information |
-| Error Logs | Available log information |
-| Severity | Impact level of the defect |
-| Priority | Priority assigned to the defect |
-| Status | Current status of the defect |
-| Resolution | Resolution applied to the defect |
-| Comments | Relevant discussion or additional information |
-| Created Date | Date when the defect was reported |
-| Resolved Date | Date when the defect was resolved |
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HistoricalDefectRecord",
+  "type": "object",
+  "properties": {
+    "chunk_id": {
+      "type": "string",
+      "description": "Unique identifier for the specific indexed chunk (e.g., APACHE-1420-chunk-01)."
+    },
+    "dataset_source": {
+      "type": "string",
+      "enum": ["Mozilla", "Apache", "Eclipse"],
+      "description": "Originating defect repository."
+    },
+    "project": {
+      "type": "string",
+      "description": "Subproject within repository (e.g., Firefox, Spark, Core, JDT)."
+    },
+    "bug_id": {
+      "type": "string",
+      "description": "Original issue identifier from source tracker (e.g., 104291)."
+    },
+    "title": {
+      "type": "string",
+      "description": "Original defect summary."
+    },
+    "description": {
+      "type": "string",
+      "description": "Full or chunked defect description."
+    },
+    "comments": {
+      "type": "string",
+      "description": "Developer discussion threads or resolution notes."
+    },
+    "stack_trace": {
+      "type": "string",
+      "description": "Attached stack trace or crash log snippet."
+    },
+    "error_message": {
+      "type": "string",
+      "description": "Parsed exception or error string."
+    },
+    "component": {
+      "type": "string",
+      "description": "Subsystem label in the source tracker."
+    },
+    "severity": {
+      "type": "string",
+      "description": "Recorded severity in source repository."
+    },
+    "priority": {
+      "type": "string",
+      "description": "Recorded priority in source repository."
+    },
+    "resolution": {
+      "type": "string",
+      "description": "Outcome status (e.g., FIXED, RESOLVED, DUPLICATE)."
+    },
+    "status": {
+      "type": "string",
+      "description": "Defect status (e.g., CLOSED, VERIFIED)."
+    },
+    "source_reference": {
+      "type": "string",
+      "description": "URL or commit identifier referencing the original fix."
+    },
+    "chunk_type": {
+      "type": "string",
+      "enum": ["summary", "description", "stack_trace", "resolution", "combined"],
+      "description": "Type of content encapsulated in this chunk."
+    }
+  },
+  "required": [
+    "chunk_id",
+    "dataset_source",
+    "bug_id",
+    "title",
+    "description"
+  ]
+}
+```
 
-## Knowledge Base Processing
+---
 
-Historical defect data will pass through the following stages:
+## 3. ChromaDB Vector Metadata Schema
 
-Raw Dataset
-→ Data Cleaning
-→ Data Standardization
-→ Chunking
-→ Embedding Generation
-→ Vector Database Indexing
-→ Semantic Retrieval
+When storing defect embeddings in ChromaDB, the document text contains the semantic representation, and metadata is indexed for fast pre-filtering:
 
-## Chunking Strategy
+| Chroma Metadata Field | Data Type | Purpose |
+| :--- | :--- | :--- |
+| `chunk_id` | `string` | Unique chunk key |
+| `source` | `string` | Repository (`Mozilla`, `Apache`, `Eclipse`) |
+| `project` | `string` | Subproject identifier |
+| `bug_id` | `string` | Defect tracker issue ID |
+| `component` | `string` | Subsystem label |
+| `resolution` | `string` | Verification outcome (`FIXED`, etc.) |
+| `chunk_type` | `string` | `description`, `stack_trace`, or `combined` |
 
-Large historical defect records may be divided into smaller meaningful chunks.
+---
 
-Possible chunks include:
+## 4. Kaggle Dataset Column Mapping & Normalization
 
-- Bug Description
-- Steps to Reproduce
-- Stack Trace
-- Error Logs
-- Developer Comments
-- Resolution / Fix Information
+Public Kaggle datasets for Mozilla, Apache, and Eclipse exhibit heterogeneous schemas. The ingestion pipeline (`scripts/process_datasets.py`) standardizes these variations:
 
-Each chunk will retain relevant metadata such as defect ID, project, component, and source.
-
-## Vector Database Metadata
-
-Each embedded chunk will be associated with metadata including:
-
-- Defect ID
-- Source
-- Project
-- Component
-- Chunk Type
-- Original Record Reference
-
-This metadata will help identify and present the source of retrieved historical defects.
-
-## Retrieval Process
-
-When a new bug is submitted:
-
-1. The submitted bug is processed.
-2. Relevant text is converted into an embedding.
-3. The embedding is searched against the historical defect vectors.
-4. Similar defect chunks are retrieved.
-5. Retrieved information is passed to the RAG pipeline.
-6. The retrieved context is used by the AI agents for diagnosis and remediation.
-
-## Purpose
-
-The knowledge base provides historical software defect information that can be retrieved when analyzing new bug reports.
-
-It is intended to support evidence-based diagnosis rather than relying only on the general knowledge of the language model.
+| Standard Target Field | Mozilla (Bugzilla) Variants | Apache (Jira) Variants | Eclipse (Bugzilla) Variants |
+| :--- | :--- | :--- | :--- |
+| `bug_id` | `Bug ID`, `bug_id`, `id` | `Issue key`, `Issue id`, `key` | `bug_id`, `id`, `Issue_id` |
+| `title` | `Summary`, `Short Description` | `Summary`, `Title` | `Summary`, `short_desc` |
+| `description` | `Description`, `Long Description` | `Description`, `body` | `Description`, `long_desc` |
+| `component` | `Component`, `product_component` | `Component/s`, `component` | `Component`, `component` |
+| `severity` | `Severity`, `bug_severity` | `Priority`, `Issue Type` | `Severity`, `bug_severity` |
+| `priority` | `Priority` | `Priority` | `Priority` |
+| `resolution` | `Resolution` | `Resolution`, `Status` | `Resolution` |
+| `comments` | `Comments`, `discussion` | `Comments` | `Comments` |

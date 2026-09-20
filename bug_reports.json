@@ -1,0 +1,2250 @@
+[
+    {
+        "id": 1,
+        "title": "string",
+        "description": "string",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-03T17:58:48.433665"
+    },
+    {
+        "id": 2,
+        "title": "Login service crash",
+        "description": "Application crashes when user tries to login",
+        "stack_trace": "NullPointerException at LoginService.java:25",
+        "error_logs": "LoginService failed",
+        "created_at": "2026-09-05T09:54:20.109301",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "failure_point": "LoginService.java: line 25",
+                "affected_code_path": "LoginService.java"
+            }
+        }
+    },
+    {
+        "id": 3,
+        "title": "Database connection timeout",
+        "description": "Application cannot connect to the database",
+        "stack_trace": "TimeoutException at DatabaseService.java:45",
+        "error_logs": "Database connection failed: connection timeout",
+        "created_at": "2026-09-05T09:56:01.438154",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "TimeoutException",
+                "failure_point": "DatabaseService.java: line 45",
+                "affected_code_path": "DatabaseService.java"
+            }
+        }
+    },
+    {
+        "id": 4,
+        "title": "Database connection timeout",
+        "description": "Application cannot connect to the database",
+        "stack_trace": "TimeoutException at DatabaseService.java:45",
+        "error_logs": "Database connection failed: connection timeout",
+        "created_at": "2026-09-05T09:56:47.109152",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "TimeoutException",
+                "failure_point": "DatabaseService.java: line 45",
+                "affected_code_path": "DatabaseService.java"
+            }
+        }
+    },
+    {
+        "id": 5,
+        "title": "Application out of memory",
+        "description": "Application crashes when processing large files",
+        "stack_trace": "OutOfMemoryError at FileProcessor.java:120",
+        "error_logs": "ERROR: Java heap space exhausted",
+        "created_at": "2026-09-05T09:57:37.649902",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "File Handling",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "OutOfMemoryError",
+                "failure_point": "FileProcessor.java: line 120",
+                "affected_code_path": "FileProcessor.java"
+            }
+        }
+    },
+    {
+        "id": 6,
+        "title": "Application out of memory",
+        "description": "Application crashes when processing large files",
+        "stack_trace": "OutOfMemoryError at FileProcessor.java:120",
+        "error_logs": "ERROR: Java heap space exhausted",
+        "created_at": "2026-09-05T09:57:39.066131",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "File Handling",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "OutOfMemoryError",
+                "failure_point": "FileProcessor.java: line 120",
+                "affected_code_path": "FileProcessor.java"
+            }
+        }
+    },
+    {
+        "id": 7,
+        "title": "File not found error",
+        "description": "Application cannot find the configuration file",
+        "stack_trace": "FileNotFoundException at ConfigLoader.java:32",
+        "error_logs": "ERROR: configuration.properties file not found",
+        "created_at": "2026-09-05T09:58:34.896667",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "FileNotFoundException",
+                "failure_point": "ConfigLoader.java: line 32",
+                "affected_code_path": "ConfigLoader.java"
+            }
+        }
+    },
+    {
+        "id": 8,
+        "title": "API service unavailable",
+        "description": "The payment API is not responding",
+        "stack_trace": "ServiceUnavailableException at PaymentAPI.java:78",
+        "error_logs": "ERROR: HTTP 503 Service Unavailable",
+        "created_at": "2026-09-05T09:59:36.402721",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "ServiceUnavailableException",
+                "failure_point": "PaymentAPI.java: line 78",
+                "affected_code_path": "PaymentAPI.java"
+            }
+        }
+    },
+    {
+        "id": 9,
+        "title": "API service unavailable",
+        "description": "The payment API is not responding",
+        "stack_trace": "ServiceUnavailableException at PaymentAPI.java:78",
+        "error_logs": "ERROR: HTTP 503 Service Unavailable",
+        "created_at": "2026-09-05T09:59:38.080552",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "ServiceUnavailableException",
+                "failure_point": "PaymentAPI.java: line 78",
+                "affected_code_path": "PaymentAPI.java"
+            }
+        }
+    },
+    {
+        "id": 10,
+        "title": "Login crash",
+        "description": "Application crashes when user logs in",
+        "stack_trace": "java.lang.NullPointerException: User object is null\n    at LoginService.login(LoginService.java:25)",
+        "error_logs": "ERROR: NullPointerException - User object is null",
+        "created_at": "2026-09-07T15:20:36.873077",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException - User object is null",
+                "failure_point": "LoginService.login(LoginService.java:25)",
+                "affected_code_path": "LoginService.login",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 11,
+        "title": "Database connection timeout",
+        "description": "Application is unable to connect to the database",
+        "stack_trace": "java.util.concurrent.TimeoutException: Database connection timed out\n    at DatabaseService.connect(DatabaseService.java:45)",
+        "error_logs": "ERROR: TimeoutException - Database connection timed out",
+        "created_at": "2026-09-07T15:23:00.975448",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "TimeoutException",
+                "error_message": "TimeoutException - Database connection timed out",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:45)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 12,
+        "title": "Application out of memory",
+        "description": "Application crashes when processing a large file",
+        "stack_trace": "java.lang.OutOfMemoryError: Java heap space\n    at FileProcessor.process(FileProcessor.java:120)",
+        "error_logs": "ERROR: OutOfMemoryError - Java heap space",
+        "created_at": "2026-09-07T15:23:52.831180",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "File Handling",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "OutOfMemoryError",
+                "error_message": "Java heap space",
+                "failure_point": "FileProcessor.process(FileProcessor.java:120)",
+                "affected_code_path": "FileProcessor.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 13,
+        "title": "Configuration file not found",
+        "description": "Application cannot find the required configuration file",
+        "stack_trace": "java.io.FileNotFoundException: config.properties not found\n    at ConfigLoader.load(ConfigLoader.java:32)",
+        "error_logs": "ERROR: FileNotFoundException - config.properties not found",
+        "created_at": "2026-09-07T15:27:41.961150",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "FileNotFoundException",
+                "error_message": "FileNotFoundException - config.properties not found",
+                "failure_point": "ConfigLoader.load(ConfigLoader.java:32)",
+                "affected_code_path": "ConfigLoader.load",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 14,
+        "title": "Payment API service unavailable",
+        "description": "Payment service is unavailable when processing transactions",
+        "stack_trace": "com.example.ServiceUnavailableException: Payment service unavailable\n    at PaymentAPI.processPayment(PaymentAPI.java:78)",
+        "error_logs": "ERROR: ServiceUnavailableException - Payment service unavailable",
+        "created_at": "2026-09-07T15:28:29.417869",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "ServiceUnavailableException",
+                "error_message": "ServiceUnavailableException - Payment service unavailable",
+                "failure_point": "PaymentAPI.processPayment(PaymentAPI.java:78)",
+                "affected_code_path": "PaymentAPI.processPayment",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 15,
+        "title": "Payment API service unavailable",
+        "description": "Payment service is unavailable when processing transactions",
+        "stack_trace": "com.example.ServiceUnavailableException: Payment service unavailable\n    at PaymentAPI.processPayment(PaymentAPI.java:78)",
+        "error_logs": "ERROR: ServiceUnavailableException - Payment service unavailable",
+        "created_at": "2026-09-07T15:28:33.328812",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "ServiceUnavailableException",
+                "error_message": "ServiceUnavailableException - Payment service unavailable",
+                "failure_point": "PaymentAPI.processPayment(PaymentAPI.java:78)",
+                "affected_code_path": "PaymentAPI.processPayment",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 16,
+        "title": "Login error without logs",
+        "description": "Application crashes when the user tries to log in",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-07T15:40:03.458755",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Unable to determine",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 17,
+        "title": "Production database corruption",
+        "description": "Production database is corrupted and the application is down",
+        "stack_trace": "DatabaseCorruptionException at DatabaseService.java:120",
+        "error_logs": "ERROR: Database corruption detected",
+        "created_at": "2026-09-07T15:54:38.970864",
+        "agent_context": {
+            "triage": {
+                "severity": "Critical",
+                "priority": "High",
+                "affected_component": "Database",
+                "confidence_score": 0.95,
+                "reasoning": "The bug contains indicators of critical system impact such as system failure, data loss, or production outage."
+            },
+            "log_analysis": {
+                "exception_type": "DatabaseCorruptionException",
+                "error_message": "Database corruption detected",
+                "failure_point": "DatabaseService.java: line 120",
+                "affected_code_path": "DatabaseService.java",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 18,
+        "title": "Payment service failure",
+        "description": "Payment processing is failing for multiple users",
+        "stack_trace": "java.lang.IllegalStateException: Payment service unavailable\n\tat PaymentService.process(PaymentService.java:78)\n\tat PaymentController.pay(PaymentController.java:42)",
+        "error_logs": "ERROR: Payment service unavailable",
+        "created_at": "2026-09-07T15:56:24.891814",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalStateException",
+                "error_message": "Payment service unavailable",
+                "failure_point": "PaymentService.process(PaymentService.java:78)",
+                "affected_code_path": "PaymentService.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 19,
+        "title": "Payment service failure",
+        "description": "Payment processing is failing for multiple users",
+        "stack_trace": "java.lang.IllegalStateException: Payment service unavailable\n\tat PaymentService.process(PaymentService.java:78)\n\tat PaymentController.pay(PaymentController.java:42)",
+        "error_logs": "ERROR: Payment service unavailable",
+        "created_at": "2026-09-07T15:56:26.468084",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalStateException",
+                "error_message": "Payment service unavailable",
+                "failure_point": "PaymentService.process(PaymentService.java:78)",
+                "affected_code_path": "PaymentService.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 20,
+        "title": "Payment service failure",
+        "description": "Payment processing is failing for multiple users",
+        "stack_trace": "java.lang.IllegalStateException: Payment service unavailable\n\tat PaymentService.process(PaymentService.java:78)\n\tat PaymentController.pay(PaymentController.java:42)",
+        "error_logs": "ERROR: Payment service unavailable",
+        "created_at": "2026-09-07T16:02:51.249804",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalStateException",
+                "error_message": "Payment service unavailable",
+                "failure_point": "PaymentService.process(PaymentService.java:78)",
+                "affected_code_path": "PaymentService.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 21,
+        "title": "Payment service failure",
+        "description": "Payment processing is failing for multiple users",
+        "stack_trace": "java.lang.IllegalStateException: Payment service unavailable\n\tat PaymentService.process(PaymentService.java:78)\n\tat PaymentController.pay(PaymentController.java:42)",
+        "error_logs": "ERROR: Payment service unavailable",
+        "created_at": "2026-09-07T16:02:58.289169",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalStateException",
+                "error_message": "Payment service unavailable",
+                "failure_point": "PaymentService.process(PaymentService.java:78)",
+                "affected_code_path": "PaymentService.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 22,
+        "title": "Login application crash",
+        "description": "The application crashes when the user tries to login",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-07T16:04:15.272147",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Unable to determine",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Authentication / Login flow",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 23,
+        "title": "NullPointerException in UserService",
+        "description": "The application crashes when accessing a user profile.",
+        "stack_trace": "java.lang.NullPointerException: Cannot invoke method on null object",
+        "error_logs": "ERROR UserService - Failed to load user profile",
+        "created_at": "2026-09-07T18:06:21.722291",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "File Handling",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "Cannot invoke method on null object",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "File handling flow",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 24,
+        "title": "NullPointerException in UserService",
+        "description": "The application crashes when accessing a user profile.",
+        "stack_trace": "java.lang.NullPointerException: Cannot invoke method on null object",
+        "error_logs": "ERROR UserService - Failed to load user profile",
+        "created_at": "2026-09-07T18:06:30.713023",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "File Handling",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "Cannot invoke method on null object",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "File handling flow",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 25,
+        "title": "NullPointerException in UserService",
+        "description": "The application crashes when accessing a user profile.",
+        "stack_trace": "java.lang.NullPointerException: Cannot invoke method on null object",
+        "error_logs": "ERROR UserService - Failed to load user profile",
+        "created_at": "2026-09-07T18:08:10.798661",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "File Handling",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "Cannot invoke method on null object",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "File handling flow",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 26,
+        "title": "NullPointerException in UserService",
+        "description": "The application crashes when accessing a user profile.",
+        "stack_trace": "java.lang.NullPointerException: Cannot invoke method on null object",
+        "error_logs": "ERROR UserService - Failed to load user profile",
+        "created_at": "2026-09-07T18:08:13.183158",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "File Handling",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "Cannot invoke method on null object",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "File handling flow",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 27,
+        "title": "User interface button error",
+        "description": "The submit button is not responding and users cannot complete the form.",
+        "stack_trace": "",
+        "error_logs": "ERROR: Submit button failed",
+        "created_at": "2026-09-07T18:37:38.835246",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Submit button failed",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 28,
+        "title": "Server error from application logs",
+        "description": "Log analysis test",
+        "stack_trace": "",
+        "error_logs": "ERROR: NullPointerException in OrderService\nERROR: Failed to process order",
+        "created_at": "2026-09-07T18:38:10.769714",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException in OrderService",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 29,
+        "title": "Random application failure",
+        "description": "Users reported that the application suddenly stops working.",
+        "stack_trace": "",
+        "error_logs": "uhh something went wrong!!! OrderService crashed... NullPointerException maybe around processing order, pls check ASAP",
+        "created_at": "2026-09-07T18:38:52.209975",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "uhh something went wrong!!! OrderService crashed... NullPointerException maybe around processing order, pls check ASAP",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 30,
+        "title": "Random application failure",
+        "description": "Users reported that the application suddenly stops working.",
+        "stack_trace": "",
+        "error_logs": "uhh something went wrong!!! OrderService crashed... NullPointerException maybe around processing order, pls check ASAP",
+        "created_at": "2026-09-07T18:38:53.655669",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "uhh something went wrong!!! OrderService crashed... NullPointerException maybe around processing order, pls check ASAP",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 31,
+        "title": "Order processing crash",
+        "description": "Application crashes when processing an order.",
+        "stack_trace": "java.lang.IllegalArgumentException: Invalid order amount\n\tat OrderService.processOrder(OrderService.java:145)\n\tat OrderController.createOrder(OrderController.java:62)",
+        "error_logs": "",
+        "created_at": "2026-09-07T18:39:26.543391",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalArgumentException",
+                "error_message": "Invalid order amount",
+                "failure_point": "OrderService.processOrder(OrderService.java:145)",
+                "affected_code_path": "OrderService.processOrder",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 32,
+        "title": "Order processing crash",
+        "description": "Application crashes when processing an order.",
+        "stack_trace": "java.lang.IllegalArgumentException: Invalid order amount\n\tat OrderService.processOrder(OrderService.java:145)\n\tat OrderController.createOrder(OrderController.java:62)",
+        "error_logs": "",
+        "created_at": "2026-09-07T18:40:00.534785",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalArgumentException",
+                "error_message": "Invalid order amount",
+                "failure_point": "OrderService.processOrder(OrderService.java:145)",
+                "affected_code_path": "OrderService.processOrder",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 33,
+        "title": "ECLIPSELINK-342852 - NPE during serialization",
+        "description": "NPE during serialization when nested object has a changesummary. This is because during the serialize operation there is a new xmlmarshaller created and then part way through the marshal we retrieve another different xmlmarshaller from the helpercontext.",
+        "stack_trace": "java.lang.NullPointerException at org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79) at org.eclipse.persistence.internal.oxm.XMLCompositeObjectMappingNodeValue.marshalSingleValue(XMLCompositeObjectMappingNodeValue.java:122) at org.eclipse.persistence.oxm.XMLMarshaller.marshal(XMLMarshaller.java:920)",
+        "error_logs": "Exception during serialization. NullPointerException occurred during XML marshaling.",
+        "created_at": "2026-09-07T20:07:27.911317",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "java.lang.NullPointerException at org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79) at org.eclipse.persistence.internal.oxm.XMLCompositeObjectMappingNodeValue.marshalSingleValue(XMLCompositeObjectMappingNodeValue.java:122) at org.eclipse.persistence.oxm.XMLMarshaller.marshal(XMLMarshaller.java:920)",
+                "failure_point": "org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79)",
+                "affected_code_path": "org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 34,
+        "title": "Production database corruption",
+        "description": "Production database is corrupted and the application is down",
+        "stack_trace": "DatabaseCorruptionException at DatabaseService.java:120",
+        "error_logs": "ERROR: Database corruption detected",
+        "created_at": "2026-09-07T20:11:20.990384",
+        "agent_context": {
+            "triage": {
+                "severity": "Critical",
+                "priority": "Critical",
+                "affected_component": "Database",
+                "confidence_score": 0.95,
+                "reasoning": "The bug contains indicators of critical system impact such as system failure, data loss, or production outage."
+            },
+            "log_analysis": {
+                "exception_type": "DatabaseCorruptionException",
+                "error_message": "Database corruption detected",
+                "failure_point": "DatabaseService.java: line 120",
+                "affected_code_path": "DatabaseService.java",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 35,
+        "title": "Payment service failure",
+        "description": "Payment processing is failing for multiple users",
+        "stack_trace": "java.lang.IllegalStateException: Payment service unavailable\n\tat PaymentService.process(PaymentService.java:78)\n\tat PaymentController.pay(PaymentController.java:42)",
+        "error_logs": "ERROR: Payment service unavailable",
+        "created_at": "2026-09-07T20:14:08.820473",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalStateException",
+                "error_message": "Payment service unavailable",
+                "failure_point": "PaymentService.process(PaymentService.java:78)",
+                "affected_code_path": "PaymentService.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 36,
+        "title": "Login application crash",
+        "description": "The application crashes when the user tries to login",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-07T20:28:09.867233",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Unable to determine",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Authentication / Login flow",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 37,
+        "title": "Login application crash",
+        "description": "The application crashes when the user tries to login",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-07T21:20:10.571688",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Unable to determine",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Authentication / Login flow",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 38,
+        "title": "User interface button error",
+        "description": "The submit button is not responding and users cannot complete the form.",
+        "stack_trace": "",
+        "error_logs": "ERROR: Submit button failed",
+        "created_at": "2026-09-07T21:23:56.129001",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Submit button failed",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 39,
+        "title": "Server error from application logs",
+        "description": "Log analysis test",
+        "stack_trace": "",
+        "error_logs": "ERROR: NullPointerException in OrderService\nERROR: Failed to process order",
+        "created_at": "2026-09-07T21:32:02.206727",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException in OrderService",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 40,
+        "title": "Random application failure",
+        "description": "Users reported that the application suddenly stops working.",
+        "stack_trace": "",
+        "error_logs": "uhh something went wrong!!! OrderService crashed... NullPointerException maybe around processing order, pls check ASAP",
+        "created_at": "2026-09-07T21:32:53.413011",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "uhh something went wrong!!! OrderService crashed... NullPointerException maybe around processing order, pls check ASAP",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.7
+            }
+        }
+    },
+    {
+        "id": 41,
+        "title": "Order processing crash",
+        "description": "Application crashes when processing an order.",
+        "stack_trace": "java.lang.IllegalArgumentException: Invalid order amount\n\tat OrderService.processOrder(OrderService.java:145)\n\tat OrderController.createOrder(OrderController.java:62)",
+        "error_logs": "",
+        "created_at": "2026-09-07T21:34:27.153354",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalArgumentException",
+                "error_message": "Invalid order amount",
+                "failure_point": "OrderService.processOrder(OrderService.java:145)",
+                "affected_code_path": "OrderService.processOrder",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 42,
+        "title": "Order processing crash",
+        "description": "Application crashes when processing an order.",
+        "stack_trace": "java.lang.IllegalArgumentException: Invalid order amount\n\tat OrderService.processOrder(OrderService.java:145)\n\tat OrderController.createOrder(OrderController.java:62)",
+        "error_logs": "",
+        "created_at": "2026-09-07T21:34:29.884101",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalArgumentException",
+                "error_message": "Invalid order amount",
+                "failure_point": "OrderService.processOrder(OrderService.java:145)",
+                "affected_code_path": "OrderService.processOrder",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 43,
+        "title": "ECLIPSELINK-342852 - NPE during serialization",
+        "description": "NPE during serialization when nested object has a changesummary. This is because during the serialize operation there is a new xmlmarshaller created and then part way through the marshal we retrieve another different xmlmarshaller from the helpercontext.",
+        "stack_trace": "java.lang.NullPointerException at org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79) at org.eclipse.persistence.internal.oxm.XMLCompositeObjectMappingNodeValue.marshalSingleValue(XMLCompositeObjectMappingNodeValue.java:122) at org.eclipse.persistence.oxm.XMLMarshaller.marshal(XMLMarshaller.java:920)",
+        "error_logs": "Exception during serialization. NullPointerException occurred during XML marshaling.",
+        "created_at": "2026-09-07T21:35:40.078900",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "java.lang.NullPointerException at org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79) at org.eclipse.persistence.internal.oxm.XMLCompositeObjectMappingNodeValue.marshalSingleValue(XMLCompositeObjectMappingNodeValue.java:122) at org.eclipse.persistence.oxm.XMLMarshaller.marshal(XMLMarshaller.java:920)",
+                "failure_point": "org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79)",
+                "affected_code_path": "org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 44,
+        "title": "ECLIPSELINK-342852 - NPE during serialization",
+        "description": "NPE during serialization when nested object has a changesummary. This is because during the serialize operation there is a new xmlmarshaller created and then part way through the marshal we retrieve another different xmlmarshaller from the helpercontext.",
+        "stack_trace": "java.lang.NullPointerException at org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79) at org.eclipse.persistence.internal.oxm.XMLCompositeObjectMappingNodeValue.marshalSingleValue(XMLCompositeObjectMappingNodeValue.java:122) at org.eclipse.persistence.oxm.XMLMarshaller.marshal(XMLMarshaller.java:920)",
+        "error_logs": "Exception during serialization. NullPointerException occurred during XML marshaling.",
+        "created_at": "2026-09-07T21:35:41.828404",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "java.lang.NullPointerException at org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79) at org.eclipse.persistence.internal.oxm.XMLCompositeObjectMappingNodeValue.marshalSingleValue(XMLCompositeObjectMappingNodeValue.java:122) at org.eclipse.persistence.oxm.XMLMarshaller.marshal(XMLMarshaller.java:920)",
+                "failure_point": "org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal(SDOMarshalListener.java:79)",
+                "affected_code_path": "org.eclipse.persistence.sdo.helper.SDOMarshalListener.beforeMarshal",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 45,
+        "title": "Apache historical bug - NullPointerException",
+        "description": "The application throws a NullPointerException while processing a request.",
+        "stack_trace": "java.lang.NullPointerException at RequestProcessor.process(RequestProcessor.java:85) at RequestController.handle(RequestController.java:42)",
+        "error_logs": "ERROR: NullPointerException while processing request",
+        "created_at": "2026-09-07T21:36:43.730488",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException while processing request",
+                "failure_point": "RequestProcessor.process(RequestProcessor.java:85)",
+                "affected_code_path": "RequestProcessor.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 46,
+        "title": "Apache historical bug - NullPointerException",
+        "description": "The application throws a NullPointerException while processing a request.",
+        "stack_trace": "java.lang.NullPointerException at RequestProcessor.process(RequestProcessor.java:85) at RequestController.handle(RequestController.java:42)",
+        "error_logs": "ERROR: NullPointerException while processing request",
+        "created_at": "2026-09-07T21:36:53.671523",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException while processing request",
+                "failure_point": "RequestProcessor.process(RequestProcessor.java:85)",
+                "affected_code_path": "RequestProcessor.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 47,
+        "title": "Application OutOfMemoryError",
+        "description": "The application crashes when processing a large dataset because available memory is exhausted.",
+        "stack_trace": "java.lang.OutOfMemoryError: Java heap space at DataProcessor.process(DataProcessor.java:120) at DataController.handle(DataController.java:55)",
+        "error_logs": "ERROR: OutOfMemoryError - Java heap space",
+        "created_at": "2026-09-07T21:37:45.218534",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "OutOfMemoryError",
+                "error_message": "Java heap space at DataProcessor.process(DataProcessor.java:120) at DataController.handle(DataController.java:55)",
+                "failure_point": "DataProcessor.process(DataProcessor.java:120)",
+                "affected_code_path": "DataProcessor.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 48,
+        "title": "File upload failure",
+        "description": "The application fails when uploading a file and users cannot complete the upload.",
+        "stack_trace": "java.io.IOException: Failed to upload file at FileUploadService.upload(FileUploadService.java:75)",
+        "error_logs": "ERROR: File upload failed",
+        "created_at": "2026-09-07T21:39:01.917953",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File upload failed",
+                "failure_point": "FileUploadService.upload(FileUploadService.java:75)",
+                "affected_code_path": "FileUploadService.upload",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 49,
+        "title": "File upload failure",
+        "description": "The application fails when uploading a file and users cannot complete the upload.",
+        "stack_trace": "java.io.IOException: Failed to upload file at FileUploadService.upload(FileUploadService.java:75)",
+        "error_logs": "ERROR: File upload failed",
+        "created_at": "2026-09-07T21:39:08.500096",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File upload failed",
+                "failure_point": "FileUploadService.upload(FileUploadService.java:75)",
+                "affected_code_path": "FileUploadService.upload",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 50,
+        "title": "File upload failure",
+        "description": "The application fails when uploading a file and users cannot complete the upload.",
+        "stack_trace": "java.io.IOException: Failed to upload file at FileUploadService.upload(FileUploadService.java:75)",
+        "error_logs": "ERROR: File upload failed",
+        "created_at": "2026-09-07T21:40:05.309676",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File upload failed",
+                "failure_point": "FileUploadService.upload(FileUploadService.java:75)",
+                "affected_code_path": "FileUploadService.upload",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 51,
+        "title": "File upload failure",
+        "description": "The application fails when uploading a file and users cannot complete the upload.",
+        "stack_trace": "java.io.IOException: Failed to upload file at FileUploadService.upload(FileUploadService.java:75)",
+        "error_logs": "ERROR: File upload failed",
+        "created_at": "2026-09-07T21:40:08.095887",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File upload failed",
+                "failure_point": "FileUploadService.upload(FileUploadService.java:75)",
+                "affected_code_path": "FileUploadService.upload",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 52,
+        "title": "Login button not responding",
+        "description": "Users are unable to click the login button and cannot sign in to the application.",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-07T21:43:02.073317",
+        "agent_context": {
+            "triage": {
+                "severity": "Low",
+                "priority": "Low",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.6,
+                "reasoning": "The bug information indicates a low-impact issue."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Unable to determine",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Authentication / Login flow",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 53,
+        "title": "Database query timeout",
+        "description": "The database query is timing out and users are experiencing delays.",
+        "stack_trace": "java.sql.SQLException: Query timeout at DatabaseService.execute(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database query timeout",
+        "created_at": "2026-09-07T21:43:44.355866",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database query timeout",
+                "failure_point": "DatabaseService.execute(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.execute",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 54,
+        "title": "Database query timeout",
+        "description": "The database query is timing out and users are experiencing delays.",
+        "stack_trace": "java.sql.SQLException: Query timeout at DatabaseService.execute(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database query timeout",
+        "created_at": "2026-09-07T21:43:45.633091",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database query timeout",
+                "failure_point": "DatabaseService.execute(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.execute",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 55,
+        "title": "Production server down",
+        "description": "The production server is completely down and all users are unable to access the application.",
+        "stack_trace": "java.lang.RuntimeException: Production server down at ServerManager.start(ServerManager.java:50)",
+        "error_logs": "CRITICAL: Production server is down",
+        "created_at": "2026-09-07T21:44:27.870943",
+        "agent_context": {
+            "triage": {
+                "severity": "Critical",
+                "priority": "Critical",
+                "affected_component": "Unknown",
+                "confidence_score": 0.95,
+                "reasoning": "The bug contains indicators of critical system impact such as system failure, data loss, or production outage."
+            },
+            "log_analysis": {
+                "exception_type": "RuntimeException",
+                "error_message": "Production server down at ServerManager.start(ServerManager.java:50)",
+                "failure_point": "ServerManager.start(ServerManager.java:50)",
+                "affected_code_path": "ServerManager.start",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 56,
+        "title": "Production server down",
+        "description": "The production server is completely down and all users are unable to access the application.",
+        "stack_trace": "java.lang.RuntimeException: Production server down at ServerManager.start(ServerManager.java:50)",
+        "error_logs": "CRITICAL: Production server is down",
+        "created_at": "2026-09-07T21:44:31.240693",
+        "agent_context": {
+            "triage": {
+                "severity": "Critical",
+                "priority": "Critical",
+                "affected_component": "Unknown",
+                "confidence_score": 0.95,
+                "reasoning": "The bug contains indicators of critical system impact such as system failure, data loss, or production outage."
+            },
+            "log_analysis": {
+                "exception_type": "RuntimeException",
+                "error_message": "Production server down at ServerManager.start(ServerManager.java:50)",
+                "failure_point": "ServerManager.start(ServerManager.java:50)",
+                "affected_code_path": "ServerManager.start",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 57,
+        "title": "User interface button error",
+        "description": "The submit button is not responding and users cannot complete the form.",
+        "stack_trace": "",
+        "error_logs": "ERROR: Submit button failed",
+        "created_at": "2026-09-07T21:45:08.279576",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Submit button failed",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Unable to determine",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 58,
+        "title": "File download failure",
+        "description": "Users are unable to download the generated report file.",
+        "stack_trace": "java.io.IOException: Failed to download file at FileService.download(FileService.java:88)",
+        "error_logs": "ERROR: File download failed",
+        "created_at": "2026-09-07T21:46:35.986053",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File download failed",
+                "failure_point": "FileService.download(FileService.java:88)",
+                "affected_code_path": "FileService.download",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 59,
+        "title": "Configuration file not found",
+        "description": "The application cannot find the required configuration file during startup.",
+        "stack_trace": "java.io.FileNotFoundException: config.properties at ConfigLoader.load(ConfigLoader.java:42)",
+        "error_logs": "ERROR: Configuration file not found",
+        "created_at": "2026-09-07T21:47:25.352614",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "FileNotFoundException",
+                "error_message": "Configuration file not found",
+                "failure_point": "ConfigLoader.load(ConfigLoader.java:42)",
+                "affected_code_path": "ConfigLoader.load",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 60,
+        "title": "Configuration file not found",
+        "description": "The application cannot find the required configuration file during startup.",
+        "stack_trace": "java.io.FileNotFoundException: config.properties at ConfigLoader.load(ConfigLoader.java:42)",
+        "error_logs": "ERROR: Configuration file not found",
+        "created_at": "2026-09-07T21:47:26.734881",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "FileNotFoundException",
+                "error_message": "Configuration file not found",
+                "failure_point": "ConfigLoader.load(ConfigLoader.java:42)",
+                "affected_code_path": "ConfigLoader.load",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 61,
+        "title": "API request failure",
+        "description": "The backend API request is failing and users are unable to retrieve account details.",
+        "stack_trace": "java.lang.RuntimeException: API request failed at AccountController.getAccount(AccountController.java:65)",
+        "error_logs": "ERROR: API request failed",
+        "created_at": "2026-09-07T21:48:15.223626",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "RuntimeException",
+                "error_message": "API request failed",
+                "failure_point": "AccountController.getAccount(AccountController.java:65)",
+                "affected_code_path": "AccountController.getAccount",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 62,
+        "title": "Database connection failure",
+        "description": "The application cannot connect to the database and users are unable to access their data.",
+        "stack_trace": "java.sql.SQLException: Connection refused at DatabaseService.connect(DatabaseService.java:50)",
+        "error_logs": "ERROR: Database connection failed",
+        "created_at": "2026-09-07T21:49:07.183109",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:50)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 63,
+        "title": "Login authentication failure",
+        "description": "Users are unable to login because authentication is failing.",
+        "stack_trace": "java.lang.SecurityException: Authentication failed at AuthService.login(AuthService.java:72)",
+        "error_logs": "ERROR: Authentication failed",
+        "created_at": "2026-09-07T21:50:57.071315",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SecurityException",
+                "error_message": "Authentication failed",
+                "failure_point": "AuthService.login(AuthService.java:72)",
+                "affected_code_path": "AuthService.login",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 64,
+        "title": "Database connection failure",
+        "description": "The application cannot connect to the database and users are unable to access their data.",
+        "stack_trace": "java.sql.SQLException: Connection refused at DatabaseService.connect(DatabaseService.java:50)",
+        "error_logs": "ERROR: Database connection failed",
+        "created_at": "2026-09-07T21:53:16.706115",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:50)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 65,
+        "title": "API request failure",
+        "description": "The backend API request is failing and users are unable to retrieve account details.",
+        "stack_trace": "java.lang.RuntimeException: API request failed at AccountController.getAccount(AccountController.java:65)",
+        "error_logs": "ERROR: API request failed",
+        "created_at": "2026-09-07T21:54:28.866705",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "RuntimeException",
+                "error_message": "API request failed",
+                "failure_point": "AccountController.getAccount(AccountController.java:65)",
+                "affected_code_path": "AccountController.getAccount",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 66,
+        "title": "API request failure",
+        "description": "The backend API request is failing and users are unable to retrieve account details.",
+        "stack_trace": "java.lang.RuntimeException: API request failed at AccountController.getAccount(AccountController.java:65)",
+        "error_logs": "ERROR: API request failed",
+        "created_at": "2026-09-08T06:22:01.078395",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "RuntimeException",
+                "error_message": "API request failed",
+                "failure_point": "AccountController.getAccount(AccountController.java:65)",
+                "affected_code_path": "AccountController.getAccount",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 67,
+        "title": "File upload failure",
+        "description": "The application fails when uploading a file and users cannot complete the upload.",
+        "stack_trace": "java.io.IOException: Failed to upload file at FileUploadService.upload(FileUploadService.java:75)",
+        "error_logs": "ERROR: File upload failed",
+        "created_at": "2026-09-08T06:22:34.600941",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File upload failed",
+                "failure_point": "FileUploadService.upload(FileUploadService.java:75)",
+                "affected_code_path": "FileUploadService.upload",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 68,
+        "title": "File download failure",
+        "description": "Users are unable to download the generated report file.",
+        "stack_trace": "java.io.IOException: Failed to download file at FileService.download(FileService.java:88)",
+        "error_logs": "ERROR: File download failed",
+        "created_at": "2026-09-08T06:23:38.530101",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File download failed",
+                "failure_point": "FileService.download(FileService.java:88)",
+                "affected_code_path": "FileService.download",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 69,
+        "title": "File download failure",
+        "description": "Users are unable to download the generated report file.",
+        "stack_trace": "java.io.IOException: Failed to download file at FileService.download(FileService.java:88)",
+        "error_logs": "ERROR: File download failed",
+        "created_at": "2026-09-08T06:23:40.699912",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File download failed",
+                "failure_point": "FileService.download(FileService.java:88)",
+                "affected_code_path": "FileService.download",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 70,
+        "title": "Login Service NullPointerException",
+        "description": "The application crashes when the user tries to log in.\nThe login service fails while processing the user credentials.",
+        "stack_trace": "java.lang.NullPointerException: Cannot invoke method on null object\n    at LoginService.authenticate(LoginService.java:25)\n    at LoginController.login(LoginController.java:48)",
+        "error_logs": "ERROR: NullPointerException\nLoginService failed at line 25\nUser login request could not be processed",
+        "created_at": "2026-09-10T15:34:46.733968",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException",
+                "failure_point": "LoginService.authenticate(LoginService.java:25)",
+                "affected_code_path": "LoginService.authenticate",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 71,
+        "title": "Login Service NullPointerException",
+        "description": "The application crashes when the user tries to log in",
+        "stack_trace": "java.lang.NullPointerException: Cannot invoke method on null object\n    at LoginService.authenticate(LoginService.java:25)\n    at LoginController.login(LoginController.java:48)",
+        "error_logs": "ERROR: NullPointerException\nLoginService failed at line 25\nUser login request could not be processed",
+        "created_at": "2026-09-10T15:47:05.618388",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException",
+                "failure_point": "LoginService.authenticate(LoginService.java:25)",
+                "affected_code_path": "LoginService.authenticate",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 72,
+        "title": "Login Service NullPointerException",
+        "description": "The application crashes when the user tries to log in.\nThe login service fails while processing the user credentials.",
+        "stack_trace": "java.lang.NullPointerException: Cannot invoke method on null object\n    at LoginService.authenticate(LoginService.java:25)\n    at LoginController.login(LoginController.java:48)",
+        "error_logs": "ERROR: NullPointerException\nLoginService failed at line 25\nUser login request could not be processed",
+        "created_at": "2026-09-10T16:01:22.408933",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException",
+                "failure_point": "LoginService.authenticate(LoginService.java:25)",
+                "affected_code_path": "LoginService.authenticate",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 73,
+        "title": "Login Service NullPointerException",
+        "description": "The application crashes when the user tries to log in.",
+        "stack_trace": "java.lang.NullPointerException\n    at LoginService.authenticate(LoginService.java:25)\n    at LoginController.login(LoginController.java:48)",
+        "error_logs": "",
+        "created_at": "2026-09-10T20:54:03.290000",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "java.lang.NullPointerException",
+                "failure_point": "LoginService.authenticate(LoginService.java:25)",
+                "affected_code_path": "LoginService.authenticate",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 74,
+        "title": "Login Error",
+        "description": "User is unable to login to the application.",
+        "stack_trace": "java.lang.NullPointerException\nat LoginService.authenticate(LoginService.java:25)",
+        "error_logs": "ERROR: NullPointerException\nLoginService failed at line 25",
+        "created_at": "2026-09-11T10:17:13.271404",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException",
+                "failure_point": "LoginService.authenticate(LoginService.java:25)",
+                "affected_code_path": "LoginService.authenticate",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 75,
+        "title": "File Upload Error",
+        "description": "Unable to upload error log file.",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-11T10:21:05.533364",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Unable to determine",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "File handling flow",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 76,
+        "title": "Database Connection Error",
+        "description": "The application is unable to connect to the database.",
+        "stack_trace": "java.sql.SQLException: Connection refused\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Connection refused",
+        "created_at": "2026-09-11T10:25:50.309041",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 77,
+        "title": "Production Server Down",
+        "description": "The production server is completely down and users cannot access the application.",
+        "stack_trace": "java.lang.RuntimeException: Server is down\nat ServerManager.start(ServerManager.java:50)",
+        "error_logs": "ERROR: Production server down\nRuntimeException: Server is down",
+        "created_at": "2026-09-11T10:27:42.299934",
+        "agent_context": {
+            "triage": {
+                "severity": "Critical",
+                "priority": "Critical",
+                "affected_component": "Unknown",
+                "confidence_score": 0.95,
+                "reasoning": "The bug contains indicators of critical system impact such as system failure, data loss, or production outage."
+            },
+            "log_analysis": {
+                "exception_type": "RuntimeException",
+                "error_message": "Production server down",
+                "failure_point": "ServerManager.start(ServerManager.java:50)",
+                "affected_code_path": "ServerManager.start",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 78,
+        "title": "Authentication Failure",
+        "description": "User authentication is failing and login is not working.",
+        "stack_trace": "java.lang.SecurityException: Authentication failed\nat AuthService.login(AuthService.java:45)",
+        "error_logs": "ERROR: Authentication failed\nSecurityException: Invalid user credentials",
+        "created_at": "2026-09-11T10:30:50.978486",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SecurityException",
+                "error_message": "Authentication failed",
+                "failure_point": "AuthService.login(AuthService.java:45)",
+                "affected_code_path": "AuthService.login",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 79,
+        "title": "Login Button Error",
+        "description": "The login button is not working when the user tries to sign in.",
+        "stack_trace": "java.lang.IllegalStateException: Button action failed\nat LoginController.submit(LoginController.java:30)",
+        "error_logs": "ERROR: Login button action failed\nIllegalStateException: Button action failed",
+        "created_at": "2026-09-11T10:32:59.367449",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IllegalStateException",
+                "error_message": "Login button action failed",
+                "failure_point": "LoginController.submit(LoginController.java:30)",
+                "affected_code_path": "LoginController.submit",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 80,
+        "title": "Login Issue",
+        "description": "User is unable to login to the application.",
+        "stack_trace": "",
+        "error_logs": "",
+        "created_at": "2026-09-11T10:45:01.113459",
+        "agent_context": {
+            "triage": {
+                "severity": "Low",
+                "priority": "Low",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.6,
+                "reasoning": "The bug information indicates a low-impact issue."
+            },
+            "log_analysis": {
+                "exception_type": "Unknown",
+                "error_message": "Unable to determine",
+                "failure_point": "Unable to determine",
+                "affected_code_path": "Authentication / Login flow",
+                "confidence_score": 0.5
+            }
+        }
+    },
+    {
+        "id": 81,
+        "title": "Memory Error",
+        "description": "The application crashes because the system is running out of memory.",
+        "stack_trace": "java.lang.OutOfMemoryError: Java heap space\nat DataProcessor.process(DataProcessor.java:120)",
+        "error_logs": "ERROR: OutOfMemoryError\nJava heap space",
+        "created_at": "2026-09-11T10:47:06.698904",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Unknown",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "OutOfMemoryError",
+                "error_message": "Java heap space",
+                "failure_point": "DataProcessor.process(DataProcessor.java:120)",
+                "affected_code_path": "DataProcessor.process",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 82,
+        "title": "File Read Error",
+        "description": "The application failed while reading a file.",
+        "stack_trace": "java.io.IOException: File read failed\nat FileService.read(FileService.java:60)",
+        "error_logs": "ERROR: File read failed\nIOException: Unable to read file",
+        "created_at": "2026-09-11T10:48:42.284688",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "File Handling",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "IOException",
+                "error_message": "File read failed",
+                "failure_point": "FileService.read(FileService.java:60)",
+                "affected_code_path": "FileService.read",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 83,
+        "title": "API Request Failure",
+        "description": "The application API request is failing and the user cannot retrieve account details.",
+        "stack_trace": "java.lang.RuntimeException: API request failed\nat AccountController.getAccount(AccountController.java:70)",
+        "error_logs": "ERROR: API request failed\nRuntimeException: Unable to retrieve account details",
+        "created_at": "2026-09-11T10:51:28.420054",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "API / Backend",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "RuntimeException",
+                "error_message": "API request failed",
+                "failure_point": "AccountController.getAccount(AccountController.java:70)",
+                "affected_code_path": "AccountController.getAccount",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 84,
+        "title": "Configuration File Error",
+        "description": "The application cannot find the required configuration file.",
+        "stack_trace": "java.io.FileNotFoundException: config.properties not found\nat ConfigLoader.load(ConfigLoader.java:42)",
+        "error_logs": "ERROR: Configuration file not found\nFileNotFoundException: config.properties not found",
+        "created_at": "2026-09-11T10:52:34.561427",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "FileNotFoundException",
+                "error_message": "Configuration file not found",
+                "failure_point": "ConfigLoader.load(ConfigLoader.java:42)",
+                "affected_code_path": "ConfigLoader.load",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 85,
+        "title": "Configuration File Error",
+        "description": "The application cannot find the required configuration file.",
+        "stack_trace": "java.io.FileNotFoundException: config.properties not found\nat ConfigLoader.load(ConfigLoader.java:42)",
+        "error_logs": "ERROR: Configuration file not found\nFileNotFoundException: config.properties not found",
+        "created_at": "2026-09-11T11:08:16.692438",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "User Interface",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "FileNotFoundException",
+                "error_message": "Configuration file not found",
+                "failure_point": "ConfigLoader.load(ConfigLoader.java:42)",
+                "affected_code_path": "ConfigLoader.load",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 86,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database.\nStack Trace",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-13T16:58:00.239835",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 87,
+        "title": "Login Service Error",
+        "description": "The login service is failing and the user is unable to login.",
+        "stack_trace": "java.lang.NullPointerException: LoginService failed\nat LoginService.login(LoginService.java:25)",
+        "error_logs": "ERROR: NullPointerException\nLoginService failed at line 25",
+        "created_at": "2026-09-13T17:26:05.262821",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException",
+                "failure_point": "LoginService.login(LoginService.java:25)",
+                "affected_code_path": "LoginService.login",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 88,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database.",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-13T17:37:31.566047",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 89,
+        "title": "Login Service Error",
+        "description": "The login service is failing and the user is unable to login.",
+        "stack_trace": "java.lang.NullPointerException: LoginService failed\nat LoginService.login(LoginService.java:25)",
+        "error_logs": "ERROR: NullPointerException\nLoginService failed at line 25",
+        "created_at": "2026-09-13T17:44:02.087211",
+        "agent_context": {
+            "triage": {
+                "severity": "High",
+                "priority": "High",
+                "affected_component": "Authentication / Login",
+                "confidence_score": 0.9,
+                "reasoning": "The bug contains an error or failure condition that can significantly affect application execution."
+            },
+            "log_analysis": {
+                "exception_type": "NullPointerException",
+                "error_message": "NullPointerException",
+                "failure_point": "LoginService.login(LoginService.java:25)",
+                "affected_code_path": "LoginService.login",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 90,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database.",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-14T18:23:31.404100",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 91,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-14T18:32:07.645296",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 92,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database.",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-16T09:20:04.149234",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 93,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database.",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-16T10:09:48.262171",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 94,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database.",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-16T18:11:58.448631",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    },
+    {
+        "id": 95,
+        "title": "Database Connection Failure",
+        "description": "The application is unable to connect to the database.",
+        "stack_trace": "java.sql.SQLException: Database connection failed\nat DatabaseService.connect(DatabaseService.java:95)",
+        "error_logs": "ERROR: Database connection failed\nSQLException: Unable to connect to database",
+        "created_at": "2026-09-17T23:08:40.721790",
+        "agent_context": {
+            "triage": {
+                "severity": "Medium",
+                "priority": "Medium",
+                "affected_component": "Database",
+                "confidence_score": 0.8,
+                "reasoning": "The bug contains an error or failure indication that may affect a specific functionality."
+            },
+            "log_analysis": {
+                "exception_type": "SQLException",
+                "error_message": "Database connection failed",
+                "failure_point": "DatabaseService.connect(DatabaseService.java:95)",
+                "affected_code_path": "DatabaseService.connect",
+                "confidence_score": 0.9
+            }
+        }
+    }
+]

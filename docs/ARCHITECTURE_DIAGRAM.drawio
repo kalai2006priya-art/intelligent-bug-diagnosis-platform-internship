@@ -1,0 +1,103 @@
+<mxfile host="app.diagrams.net" modified="2026-09-18T12:00:00.000Z" agent="Antigravity" version="21.0.0" type="device">
+  <diagram id="intelligent-bug-diagnosis-arch" name="System Architecture">
+    <mxGraphModel dx="1422" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- User Layer -->
+        <mxCell id="user" value="Developer / User&#xa;(Web Browser)" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="80" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Frontend -->
+        <mxCell id="frontend" value="Frontend (React + Vite + Tailwind)&#xa;- Landing &amp; Auth (JWT)&#xa;- Dashboard &amp; Bug History&#xa;- Bug Submission (.txt/.log upload)&#xa;- Structured 6-Section Diagnosis UI&#xa;- Knowledge Base Explorer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacingLeft=10;fontStyle=0" vertex="1" parent="1">
+          <mxGeometry x="190" y="270" width="220" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Backend API Gateway -->
+        <mxCell id="backend" value="FastAPI Backend Gateway&#xa;- REST API Router (/bugs, /auth, /health)&#xa;- Multipart File Parser &amp; Validator&#xa;- JWT Authentication Service&#xa;- Agent Orchestration Dispatcher" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacingLeft=10;fontStyle=0" vertex="1" parent="1">
+          <mxGeometry x="460" y="270" width="220" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Storage Layer -->
+        <mxCell id="sqlite" value="SQLite Database (SQLAlchemy)&#xa;- Users (bcrypt credentials)&#xa;- Bug Reports&#xa;- Structured Agent Diagnoses" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;align=center;" vertex="1" parent="1">
+          <mxGeometry x="475" y="470" width="190" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Datasets & Vector DB -->
+        <mxCell id="datasets" value="Historical Defect Repositories&#xa;- Mozilla Dataset (Bugzilla)&#xa;- Apache Dataset (Jira)&#xa;- Eclipse Dataset (Bugzilla)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=center;" vertex="1" parent="1">
+          <mxGeometry x="740" y="60" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pipeline" value="Ingestion &amp; Chunking Pipeline&#xa;- Column Standardization&#xa;- Text Cleaning &amp; Deduplication&#xa;- Semantic Chunking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;" vertex="1" parent="1">
+          <mxGeometry x="740" y="170" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="chroma" value="ChromaDB Vector Database&#xa;- all-MiniLM-L6-v2 Embeddings&#xa;- 384-dimensional Vectors&#xa;- Cosine Similarity Index" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;align=center;" vertex="1" parent="1">
+          <mxGeometry x="745" y="275" width="190" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Orchestrator & Agents -->
+        <mxCell id="orchestrator" value="Agent Orchestrator Pipeline" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;startSize=25;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="80" width="280" height="520" as="geometry" />
+        </mxCell>
+
+        <mxCell id="agent1" value="1. Triage Agent&#xa;- Severity (Critical/High/Med/Low)&#xa;- Priority Assessment&#xa;- Component Classification" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;spacingLeft=8;" vertex="1" parent="orchestrator">
+          <mxGeometry x="20" y="40" width="240" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="agent2" value="2. Log Analysis Agent&#xa;- Exception Type &amp; Error Message&#xa;- Failure Point (File:Line)&#xa;- Call Path Extraction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacingLeft=8;" vertex="1" parent="orchestrator">
+          <mxGeometry x="20" y="130" width="240" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="agent3" value="3. Root Cause Agent&#xa;- RAG Context Integration&#xa;- Hypothesis Formulation&#xa;- Grounded Evidence Separation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacingLeft=8;" vertex="1" parent="orchestrator">
+          <mxGeometry x="20" y="220" width="240" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="agent4" value="4. Duplicate Detection Agent&#xa;- Historical Defect Matching&#xa;- Threshold Evaluation (0.85/0.65)&#xa;- Historical Resolution Retrieval" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;" vertex="1" parent="orchestrator">
+          <mxGeometry x="20" y="310" width="240" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="agent5" value="5. Remediation Agent&#xa;- Code &amp; Config Recommendations&#xa;- Best Practice vs Historical Basis&#xa;- Step-by-Step Validation Guide" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;align=left;spacingLeft=8;" vertex="1" parent="orchestrator">
+          <mxGeometry x="20" y="400" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Connections -->
+        <mxCell id="edge1" edge="1" source="user" target="frontend" parent="1" style="endArrow=classic;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge2" edge="1" source="frontend" target="backend" parent="1" style="endArrow=classic;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge3" edge="1" source="backend" target="sqlite" parent="1" style="endArrow=classic;startArrow=classic;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge4" edge="1" source="datasets" target="pipeline" parent="1" style="endArrow=classic;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge5" edge="1" source="pipeline" target="chroma" parent="1" style="endArrow=classic;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge6" edge="1" source="backend" target="orchestrator" parent="1" style="endArrow=classic;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="720" y="440" />
+              <mxPoint x="960" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge7" edge="1" source="chroma" target="orchestrator" parent="1" style="endArrow=classic;startArrow=classic;html=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

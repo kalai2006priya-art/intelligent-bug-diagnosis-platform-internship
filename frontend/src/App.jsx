@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
@@ -13,6 +13,7 @@ import { SubmitBugPage } from './pages/SubmitBugPage';
 import { BugHistoryPage } from './pages/BugHistoryPage';
 import { DiagnosisReportPage } from './pages/DiagnosisReportPage';
 import { KnowledgeBasePage } from './pages/KnowledgeBasePage';
+import { AnalyticsPage } from './pages/AnalyticsPage';
 import { ProfilePage } from './pages/ProfilePage';
 
 function AppContent() {
@@ -27,6 +28,7 @@ function AppContent() {
     'submit-bug',
     'bug-history',
     'diagnosis-report',
+    'analytics',
     'knowledge-base',
     'profile'
   ].includes(currentRoute);
@@ -61,6 +63,12 @@ function AppContent() {
         return (
           <ProtectedRoute setCurrentRoute={setCurrentRoute}>
             <DiagnosisReportPage bugId={selectedBugId} setCurrentRoute={setCurrentRoute} />
+          </ProtectedRoute>
+        );
+      case 'analytics':
+        return (
+          <ProtectedRoute setCurrentRoute={setCurrentRoute}>
+            <AnalyticsPage />
           </ProtectedRoute>
         );
       case 'knowledge-base':

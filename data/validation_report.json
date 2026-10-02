@@ -1,0 +1,159 @@
+{
+  "timestamp": "2026-09-29T09:57:40.140961",
+  "vector_store_chunks": 51,
+  "metrics": {
+    "triage_severity_accuracy": 100.0,
+    "triage_component_accuracy": 100.0,
+    "log_exception_precision": 100.0,
+    "log_failure_point_precision": 100.0,
+    "rag_avg_similarity": 0.593,
+    "rag_top1_domain_relevance": 50.0,
+    "duplicate_detection_accuracy": 100.0,
+    "remediation_code_snippet_present": true,
+    "remediation_validation_steps_present": true
+  },
+  "stage_latency_ms": {
+    "stage1_triage_and_logs": 0.13,
+    "stage2_rag_vector_retrieval": 2.63,
+    "stage3_root_cause_and_duplicate": 1.2,
+    "stage4_remediation": 0.8,
+    "total_estimated_pipeline_ms": 4.77
+  },
+  "case_evaluations": [
+    {
+      "id": "TC-JAVA-01",
+      "title": "NullPointerException during OAuth token refresh in",
+      "language": "Java",
+      "severity_predicted": "High",
+      "severity_expected": "High",
+      "severity_match": true,
+      "component_predicted": "Authentication & Authorization",
+      "component_expected": "Authentication & Authorization",
+      "component_match": true,
+      "exception_predicted": "NullPointerException",
+      "exception_expected": "NullPointerException",
+      "exception_match": true
+    },
+    {
+      "id": "TC-PY-02",
+      "title": "ZeroDivisionError in metrics calculation worker",
+      "language": "Python",
+      "severity_predicted": "Medium",
+      "severity_expected": "Medium",
+      "severity_match": true,
+      "component_predicted": "General / Core Subsystem",
+      "component_expected": "General / Core Subsystem",
+      "component_match": true,
+      "exception_predicted": "ZeroDivisionError",
+      "exception_expected": "ZeroDivisionError",
+      "exception_match": true
+    },
+    {
+      "id": "TC-CPP-03",
+      "title": "Fatal crash in HTTP network request callback when ",
+      "language": "C++",
+      "severity_predicted": "Critical",
+      "severity_expected": "Critical",
+      "severity_match": true,
+      "component_predicted": "Networking & API",
+      "component_expected": "Networking & API",
+      "component_match": true,
+      "exception_predicted": "NativeCrashException",
+      "exception_expected": "NativeCrashException",
+      "exception_match": true
+    },
+    {
+      "id": "TC-JS-04",
+      "title": "TypeError cannot read properties of undefined in u",
+      "language": "JavaScript",
+      "severity_predicted": "Medium",
+      "severity_expected": "Medium",
+      "severity_match": true,
+      "component_predicted": "UI & Frontend Rendering",
+      "component_expected": "UI & Frontend Rendering",
+      "component_match": true,
+      "exception_predicted": "TypeError",
+      "exception_expected": "TypeError",
+      "exception_match": true
+    },
+    {
+      "id": "TC-DB-05",
+      "title": "Database connection pool exhaustion deadlock under",
+      "language": "SQL / Java",
+      "severity_predicted": "High",
+      "severity_expected": "High",
+      "severity_match": true,
+      "component_predicted": "Database / Persistence",
+      "component_expected": "Database / Persistence",
+      "component_match": true,
+      "exception_predicted": "SQLException",
+      "exception_expected": "SQLException",
+      "exception_match": true
+    },
+    {
+      "id": "TC-MEM-06",
+      "title": "Catastrophic OutOfMemoryError in batch report gene",
+      "language": "Java",
+      "severity_predicted": "Critical",
+      "severity_expected": "Critical",
+      "severity_match": true,
+      "component_predicted": "Memory & Runtime Resources",
+      "component_expected": "Memory & Runtime Resources",
+      "component_match": true,
+      "exception_predicted": "OutOfMemoryError",
+      "exception_expected": "OutOfMemoryError",
+      "exception_match": true
+    },
+    {
+      "id": "TC-PARTIAL-07",
+      "title": "Payment gateway socket timeout on checkout confirm",
+      "language": "Java",
+      "severity_predicted": "High",
+      "severity_expected": "High",
+      "severity_match": true,
+      "component_predicted": "Networking & API",
+      "component_expected": "Networking & API",
+      "component_match": true,
+      "exception_predicted": "SocketTimeoutException",
+      "exception_expected": "SocketTimeoutException",
+      "exception_match": false
+    },
+    {
+      "id": "TC-SPARSE-08",
+      "title": "Something wrong",
+      "language": "General",
+      "severity_predicted": "Low",
+      "severity_expected": "Low",
+      "severity_match": true,
+      "component_predicted": "Unspecified",
+      "component_expected": "Unspecified",
+      "component_match": true,
+      "exception_predicted": null,
+      "exception_expected": null,
+      "exception_match": false
+    }
+  ],
+  "duplicate_evaluations": [
+    {
+      "pair_id": "DUP-PAIR-01",
+      "expected_type": "Likely Duplicate",
+      "predicted_type": "Likely Duplicate",
+      "sim_score": 0.85,
+      "match": true
+    },
+    {
+      "pair_id": "REL-PAIR-02",
+      "expected_type": "Related Issue",
+      "predicted_type": "Related Issue",
+      "sim_score": 0.65,
+      "match": true
+    },
+    {
+      "pair_id": "UNREL-PAIR-03",
+      "expected_type": "New / Unmatched",
+      "predicted_type": "New / Unmatched",
+      "sim_score": 0.55,
+      "match": true
+    }
+  ]
+}

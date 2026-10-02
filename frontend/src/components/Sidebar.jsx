@@ -1,5 +1,5 @@
-import React from 'react';
-import { LayoutDashboard, PlusCircle, History, Database, User, LogOut } from 'lucide-react';
+﻿import React from 'react';
+import { LayoutDashboard, PlusCircle, History, Database, User, LogOut, BarChart3 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export function Sidebar({ currentRoute, setCurrentRoute }) {
@@ -9,6 +9,7 @@ export function Sidebar({ currentRoute, setCurrentRoute }) {
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'submit-bug', label: 'Submit Bug', icon: PlusCircle },
     { id: 'bug-history', label: 'Bug History', icon: History },
+    { id: 'analytics', label: 'Defect Analytics', icon: BarChart3 },
     { id: 'knowledge-base', label: 'Knowledge Base', icon: Database },
     { id: 'profile', label: 'Profile', icon: User },
   ];

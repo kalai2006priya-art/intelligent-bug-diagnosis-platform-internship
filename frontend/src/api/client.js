@@ -38,7 +38,16 @@ export async function request(endpoint, options = {}) {
   }
 
   if (!response.ok) {
-    const errorMsg = data?.detail || (typeof data === 'string' ? data : 'API Request failed');
+    let errorMsg = 'API Request failed';
+    if (typeof data?.detail === 'string') {
+      errorMsg = data.detail;
+    } else if (Array.isArray(data?.detail)) {
+      errorMsg = data.detail.map((d) => d.msg || d.detail || JSON.stringify(d)).join('; ');
+    } else if (typeof data === 'string') {
+      errorMsg = data;
+    } else if (data?.message) {
+      errorMsg = data.message;
+    }
     throw new Error(errorMsg);
   }
 

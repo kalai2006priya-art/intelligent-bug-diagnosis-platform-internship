@@ -10,6 +10,19 @@ export function LoginPage({ setCurrentRoute }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const handleDemoLogin = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await login('demo@example.com', 'password123');
+      setCurrentRoute('dashboard');
+    } catch (err) {
+      setError(err.message || 'Demo login failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -21,10 +34,15 @@ export function LoginPage({ setCurrentRoute }) {
 
     setLoading(true);
     try {
-      await login(email, password);
+      await login(email.trim(), password);
       setCurrentRoute('dashboard');
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      const msg = err.message || '';
+      if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('Bad Gateway') || msg.includes('refused')) {
+        setError('Cannot connect to backend server. Please make sure the backend is running on port 8000 (run_backend.bat).');
+      } else {
+        setError(msg || 'Login failed. Please check your credentials.');
+      }
     } finally {
       setLoading(false);
     }
@@ -36,6 +54,23 @@ export function LoginPage({ setCurrentRoute }) {
         <div className="text-center mb-6">
           <h2 className="text-xl font-bold text-slate-900">Developer Sign In</h2>
           <p className="text-xs text-slate-500 mt-1">Access your bug diagnosis reports and historical analysis</p>
+        </div>
+
+        {/* 1-Click Demo Login Button */}
+        <div className="mb-5">
+          <button
+            type="button"
+            disabled={loading}
+            onClick={handleDemoLogin}
+            className="w-full flex items-center justify-center py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-colors cursor-pointer"
+          >
+            🚀 Instant 1-Click Demo Login (No Registration Needed)
+          </button>
+        </div>
+
+        <div className="relative my-4">
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200"></div></div>
+          <div className="relative flex justify-center text-xs"><span className="px-2 bg-white text-slate-400">or sign in with credentials</span></div>
         </div>
 
         {error && (
@@ -53,11 +88,11 @@ export function LoginPage({ setCurrentRoute }) {
                 <Mail className="w-4 h-4" />
               </div>
               <input
-                type="email"
+                type="text"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="developer@example.com"
+                placeholder="your.email@example.com or username"
                 className="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
             </div>
@@ -96,7 +131,20 @@ export function LoginPage({ setCurrentRoute }) {
           </button>
         </form>
 
-        <div className="mt-6 text-center pt-4 border-t border-slate-100">
+        <div className="mt-4 p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 flex items-center justify-between">
+          <div>
+            <span className="font-semibold text-slate-700">Demo User:</span> demo@example.com / password123
+          </div>
+          <button
+            type="button"
+            onClick={() => { setEmail('demo@example.com'); setPassword('password123'); }}
+            className="text-brand-600 hover:text-brand-700 font-semibold text-xs ml-2 underline cursor-pointer"
+          >
+            Auto-Fill
+          </button>
+        </div>
+
+        <div className="mt-5 text-center pt-4 border-t border-slate-100">
           <p className="text-xs text-slate-500">
             Don't have an account?{' '}
             <button

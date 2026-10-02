@@ -6,6 +6,7 @@ import {
 import { bugsApi } from '../api/bugs';
 import { StatusBadge } from '../components/StatusBadge';
 import { ProgressTracker } from '../components/ProgressTracker';
+import { ResolutionPromotionCard } from '../components/growth/ResolutionPromotionCard';
 
 export function DiagnosisReportPage({ bugId, setCurrentRoute }) {
   const [bug, setBug] = useState(null);
@@ -550,6 +551,23 @@ export function DiagnosisReportPage({ bugId, setCurrentRoute }) {
               )}
             </div>
           </div>
+
+          {/* ========================================================================= */}
+          {/* SECTION 7: KNOWLEDGE BASE GROWTH & RESOLUTION WORKFLOW (M4.2) */}
+          {/* ========================================================================= */}
+          <ResolutionPromotionCard
+            bug={bug}
+            diagnosis={diagnosis}
+            onPromoted={(updatedRes) => {
+              setBug((prev) => ({
+                ...prev,
+                status: 'Resolved',
+                indexed_in_kb: true,
+                resolution_notes: updatedRes?.resolution_notes || prev.resolution_notes,
+                confirmed_fix_code: updatedRes?.confirmed_fix_code || prev.confirmed_fix_code,
+              }));
+            }}
+          />
         </>
       )}
     </div>

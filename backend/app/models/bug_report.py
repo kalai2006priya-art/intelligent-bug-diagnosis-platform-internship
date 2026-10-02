@@ -1,6 +1,6 @@
-import uuid
+﻿import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, Text, DateTime, ForeignKey
+from sqlalchemy import Column, String, Text, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from app.database.session import Base
 
@@ -15,9 +15,15 @@ class BugReport(Base):
     error_logs = Column(Text, nullable=True)
     component = Column(String(100), nullable=True)
     environment = Column(String(255), nullable=True)
-    status = Column(String(30), default="Submitted", nullable=False)  # Submitted, Analyzing, Diagnosed, Failed
+    status = Column(String(30), default="Submitted", nullable=False)  # Submitted, Analyzing, Diagnosed, Resolved, Failed
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+
+    # M4.2 Resolution & Knowledge Base Growth fields
+    resolution_notes = Column(Text, nullable=True)
+    confirmed_fix_code = Column(Text, nullable=True)
+    resolved_at = Column(DateTime, nullable=True)
+    indexed_in_kb = Column(Boolean, default=False, nullable=False)
 
     # Relationships
     user = relationship("User", back_populates="bugs")

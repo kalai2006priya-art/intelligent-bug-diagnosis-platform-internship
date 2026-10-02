@@ -89,7 +89,8 @@ def get_knowledge_base_stats(db: Session = Depends(get_db)):
         "sources": {
             "Mozilla": stats_dict.get("Mozilla", 0),
             "Apache": stats_dict.get("Apache", 0),
-            "Eclipse": stats_dict.get("Eclipse", 0)
+            "Eclipse": stats_dict.get("Eclipse", 0),
+            "Platform": stats_dict.get("Platform", 0)
         },
         "total_relational_records": sum(stats_dict.values()),
         "total_vector_chunks": vector_count

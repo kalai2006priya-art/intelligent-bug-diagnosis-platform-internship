@@ -1,10 +1,12 @@
 from datetime import datetime
 from pydantic import BaseModel, Field
 
+from typing import Optional
+
 class UserCreate(BaseModel):
-    name: str = Field(..., min_length=2, max_length=100)
-    email: str = Field(..., pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$", description="Valid email address")
-    password: str = Field(..., min_length=6, max_length=128)
+    name: Optional[str] = "Developer"
+    email: str = Field(..., min_length=1, max_length=150, description="Valid email address or username")
+    password: str = Field(..., min_length=1, max_length=128)
 
 class UserLogin(BaseModel):
     email: str

@@ -65,7 +65,7 @@ class TriageAgent(BaseAgent):
         combined_text = f"{title} {description} {stack_trace or ''} {error_logs or ''}".lower()
 
         # Insufficient Evidence check
-        if len(combined_text.strip()) < 20:
+        if (len(combined_text.strip()) < 35 and not stack_trace and not error_logs) or len(combined_text.strip()) < 20:
             return {
                 "severity": "Low",
                 "priority": "Low",
@@ -75,8 +75,11 @@ class TriageAgent(BaseAgent):
             }
 
         # 1. Detect Component
-        detected_component = component if component else "General / Core Subsystem"
-        if any(w in combined_text for w in ["login", "auth", "token", "jwt", "password", "session", "credential", "cors"]):
+        if component and component.lower() not in ["unspecified", "general", "general / core subsystem"]:
+            detected_component = component
+        elif any(w in combined_text for w in ["memory", "leak", "vram", "oom", "metaspace", "heap", "garbage"]):
+            detected_component = "Memory & Runtime Resources"
+        elif any(w in combined_text for w in ["login", "auth", "token", "jwt", "password", "session", "credential", "cors"]):
             detected_component = "Authentication & Authorization"
         elif any(w in combined_text for w in ["database", "sql", "postgres", "mysql", "sqlite", "query", "deadlock", "transaction", "pool", "connection"]):
             detected_component = "Database / Persistence"
@@ -84,10 +87,10 @@ class TriageAgent(BaseAgent):
             detected_component = "UI & Frontend Rendering"
         elif any(w in combined_text for w in ["http", "socket", "timeout", "network", "fetch", "rest", "api", "endpoint"]):
             detected_component = "Networking & API"
-        elif any(w in combined_text for w in ["file", "disk", "s3", "storage", "io", "directory", "filenotfound"]):
+        elif any(w in combined_text for w in ["filenotfound", "filesystem", "disk", "s3", "storage", "ioerror", "directory"]):
             detected_component = "Storage & File System"
-        elif any(w in combined_text for w in ["memory", "leak", "vram", "oom", "metaspace", "garbage"]):
-            detected_component = "Memory & Runtime Resources"
+        else:
+            detected_component = "General / Core Subsystem"
 
         # 2. Detect Severity
         severity = "Medium"

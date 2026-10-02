@@ -59,32 +59,41 @@ export function KnowledgeBasePage() {
       <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
         <h1 className="text-lg font-bold text-slate-900">Historical Defect Knowledge Base</h1>
         <p className="text-xs text-slate-500 mt-0.5">
-          Explore and query indexed open-source defect repositories from Mozilla, Apache, and Eclipse.
+          Explore and query indexed open-source defect repositories (Mozilla, Apache, Eclipse) and continuously grown platform-resolved defects (M4.2).
         </p>
       </div>
 
       {/* Stats Cards */}
       {stats && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
             <div className="text-[11px] font-semibold text-slate-500 uppercase">Mozilla Bugzilla</div>
-            <div className="text-xl font-bold text-slate-900 mt-1">{stats.sources.Mozilla || 0}</div>
+            <div className="text-xl font-bold text-slate-900 mt-1">{stats.sources?.Mozilla || 0}</div>
             <div className="text-[10px] text-slate-400">Indexed defects</div>
           </div>
 
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
             <div className="text-[11px] font-semibold text-slate-500 uppercase">Apache Jira</div>
-            <div className="text-xl font-bold text-slate-900 mt-1">{stats.sources.Apache || 0}</div>
+            <div className="text-xl font-bold text-slate-900 mt-1">{stats.sources?.Apache || 0}</div>
             <div className="text-[10px] text-slate-400">Indexed defects</div>
           </div>
 
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
             <div className="text-[11px] font-semibold text-slate-500 uppercase">Eclipse Bugzilla</div>
-            <div className="text-xl font-bold text-slate-900 mt-1">{stats.sources.Eclipse || 0}</div>
+            <div className="text-xl font-bold text-slate-900 mt-1">{stats.sources?.Eclipse || 0}</div>
             <div className="text-[10px] text-slate-400">Indexed defects</div>
           </div>
 
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/30 shadow-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-semibold text-emerald-700 uppercase">Platform Contributed</span>
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">M4.2</span>
+            </div>
+            <div className="text-xl font-bold text-emerald-700 mt-1">{stats.sources?.Platform || 0}</div>
+            <div className="text-[10px] text-emerald-600/70">Self-grown defects</div>
+          </div>
+
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm col-span-2 sm:col-span-1">
             <div className="text-[11px] font-semibold text-slate-500 uppercase">ChromaDB Vectors</div>
             <div className="text-xl font-bold text-brand-600 mt-1">{stats.total_vector_chunks || 0}</div>
             <div className="text-[10px] text-slate-400">384-d semantic chunks</div>
@@ -116,6 +125,7 @@ export function KnowledgeBasePage() {
               <option value="Mozilla">Mozilla</option>
               <option value="Apache">Apache</option>
               <option value="Eclipse">Eclipse</option>
+              <option value="Platform">Platform Resolved (M4.2)</option>
             </select>
 
             <button

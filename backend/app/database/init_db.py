@@ -17,6 +17,21 @@ def init_db():
     Base.metadata.create_all(bind=engine)
     logger.info("Database tables verified/created.")
 
+def seed_default_users_if_empty(db: Session):
+    """Ensure standard demo developer account is available out of the box."""
+    from app.models.user import User
+    from app.utils.security import get_password_hash
+    demo_user = db.query(User).filter(User.email == "demo@example.com").first()
+    if not demo_user:
+        demo_user = User(
+            name="Demo Developer",
+            email="demo@example.com",
+            password_hash=get_password_hash("password123")
+        )
+        db.add(demo_user)
+        db.commit()
+        logger.info("Demo developer user seeded (demo@example.com / password123).")
+
 def seed_sample_defects_if_empty(db: Session):
     """
     Seeds bundled sample defects into SQLite and ChromaDB if historical_defects is empty,

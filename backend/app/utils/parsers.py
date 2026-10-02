@@ -80,10 +80,14 @@ def parse_stack_trace_heuristically(raw_text: str) -> Dict[str, Optional[str]]:
             "confidence": 0.92 if failure_point else 0.80
         }
 
-    # 2. Check for Java Stack Trace
+    # Check for JS frames first to prevent overlap with Java
+    js_frames = JS_FRAME_REGEX.findall(text)
+    js_match = JS_ERROR_REGEX.search(text)
+
+    # 2. Check for Java Stack Trace or Java Exception in logs
     java_frames = JAVA_FRAME_REGEX.findall(text)
     java_exc_match = JAVA_EXCEPTION_REGEX.search(text)
-    if java_frames or "Exception in thread" in text or "java." in text:
+    if (java_frames or "Exception in thread" in text or "java." in text or java_exc_match) and not js_frames:
         exc_type = "JavaException"
         msg = ""
         if java_exc_match:
@@ -116,7 +120,13 @@ def parse_stack_trace_heuristically(raw_text: str) -> Dict[str, Optional[str]]:
         func = cpp_match.group(1).strip()
         f_name = cpp_match.group(2)
         line = cpp_match.group(3)
-        failure_point = f"{f_name}:{line}" if (f_name and line) else func
+        failure_point = f"{f_name}:{line}" if (f_name and line) else None
+        if not failure_point:
+            frame_m = re.search(r'\[([a-zA-Z0-9_\-.]+\.(?:cpp|c|cc|cxx|h|hpp)):(\d+)\]', text)
+            if frame_m:
+                failure_point = f"{frame_m.group(1)}:{frame_m.group(2)}"
+            else:
+                failure_point = func
         return {
             "status": "Success",
             "exception_type": "NativeCrashException",

@@ -1,5 +1,5 @@
 @echo off
 title Bug Diagnosis Platform - Backend
 cd /d "%~dp0backend"
-python -m uvicorn app.main:app --reload --port 8000
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 pause

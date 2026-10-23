@@ -41,6 +41,10 @@ class Settings(BaseSettings):
     DATA_SAMPLE_DIR: str = str(BASE_DIR / "data" / "sample_data")
     DATA_PROCESSED_DIR: str = str(BASE_DIR / "data" / "processed")
 
+    # Memory Optimization for Cloud Hosting (Render Free Tier)
+    LOW_MEMORY_MODE: bool = False
+    DEFER_VECTOR_INDEXING: bool = True
+
     class Config:
         env_file = str(ENV_PATH)
         extra = "ignore"

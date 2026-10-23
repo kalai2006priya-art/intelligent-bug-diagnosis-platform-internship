@@ -34,11 +34,13 @@ def seed_default_users_if_empty(db: Session):
 
 def seed_sample_defects_if_empty(db: Session):
     """
-    Seeds bundled sample defects into SQLite and ChromaDB if historical_defects is empty,
-    providing immediate RAG capabilities out of the box.
+    Seeds bundled sample defects into SQLite relational storage.
+    Vector store indexing is deferred to avoid startup memory spikes on constrained instances.
     """
     count = db.query(HistoricalDefect).count()
     if count > 0:
+        if not settings.DEFER_VECTOR_INDEXING:
+            ensure_vector_store_seeded()
         return
 
     sample_dir = Path(settings.DATA_SAMPLE_DIR)
@@ -66,14 +68,9 @@ def seed_sample_defects_if_empty(db: Session):
     if not all_records:
         return
 
-    logger.info(f"Seeding {len(all_records)} sample historical defects into SQLite and ChromaDB...")
-
-    chunk_ids = []
-    documents = []
-    metadatas = []
+    logger.info(f"Seeding {len(all_records)} sample historical defects into SQLite...")
 
     for item in all_records:
-        # 1. Insert into SQLite
         rec = HistoricalDefect(
             dataset_source=item.get("dataset_source", "General"),
             project=item.get("project", "General"),
@@ -92,18 +89,64 @@ def seed_sample_defects_if_empty(db: Session):
         )
         db.add(rec)
 
-        # 2. Prepare chunks for ChromaDB
+    db.commit()
+    logger.info("Historical defects successfully seeded in SQLite relational storage.")
+
+    if not settings.DEFER_VECTOR_INDEXING:
+        ensure_vector_store_seeded()
+    else:
+        logger.info("ChromaDB vector embedding deferred to on-demand execution (memory optimization).")
+
+
+def ensure_vector_store_seeded():
+    """
+    Lazily indexes sample historical defect chunks into ChromaDB only when needed.
+    Prevents memory spikes during server startup.
+    """
+    try:
+        if VectorStore.count() > 0:
+            return
+    except Exception as e:
+        logger.warning(f"Could not verify existing vector count: {e}")
+
+    sample_dir = Path(settings.DATA_SAMPLE_DIR)
+    if not sample_dir.exists():
+        return
+
+    sample_files = [
+        sample_dir / "mozilla_sample.json",
+        sample_dir / "apache_sample.json",
+        sample_dir / "eclipse_sample.json"
+    ]
+
+    all_records = []
+    for s_file in sample_files:
+        if s_file.exists():
+            try:
+                with open(s_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        all_records.extend(data)
+            except Exception as e:
+                logger.error(f"Error reading sample file {s_file}: {e}")
+
+    if not all_records:
+        return
+
+    chunk_ids = []
+    documents = []
+    metadatas = []
+
+    for item in all_records:
         chunks = chunk_historical_bug(item)
         for c in chunks:
             chunk_ids.append(c["chunk_id"])
             documents.append(c["text"])
             metadatas.append(c["metadata"])
 
-    db.commit()
-
-    # 3. Generate embeddings and add to ChromaDB
     if documents:
         try:
+            logger.info(f"Generating embeddings and indexing {len(chunk_ids)} chunks into ChromaDB...")
             embeddings = EmbeddingService.get_embeddings(documents)
             VectorStore.add_chunks(
                 ids=chunk_ids,
@@ -113,4 +156,4 @@ def seed_sample_defects_if_empty(db: Session):
             )
             logger.info(f"Successfully indexed {len(chunk_ids)} chunks into ChromaDB.")
         except Exception as e:
-            logger.error(f"Error indexing chunks in ChromaDB: {e}")
+            logger.error(f"Error indexing chunks in ChromaDB: {e}", exc_info=True)

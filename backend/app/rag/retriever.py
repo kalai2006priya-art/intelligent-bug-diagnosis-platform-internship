@@ -17,6 +17,12 @@ class RAGRetriever:
         if not query or len(query.strip()) < 3:
             return []
 
+        try:
+            from app.database.init_db import ensure_vector_store_seeded
+            ensure_vector_store_seeded()
+        except Exception:
+            pass
+
         query_emb = EmbeddingService.get_embedding(query.strip())
         where_filter = {"source": source_filter} if source_filter else None
         

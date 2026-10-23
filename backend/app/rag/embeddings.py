@@ -13,12 +13,23 @@ class EmbeddingService:
 
     @classmethod
     def get_model(cls):
+        if settings.LOW_MEMORY_MODE:
+            if not cls._use_fallback:
+                logger.info("LOW_MEMORY_MODE enabled. Using deterministic 384-d semantic projection engine.")
+                cls._use_fallback = True
+            return None
+
         if cls._model is None and not cls._use_fallback:
             try:
+                try:
+                    import torch
+                    torch.set_num_threads(1)
+                except Exception:
+                    pass
                 from sentence_transformers import SentenceTransformer
                 logger.info(f"Loading embedding model: {settings.EMBEDDING_MODEL_NAME}")
                 cls._model = SentenceTransformer(settings.EMBEDDING_MODEL_NAME)
-            except Exception as e:
+            except (MemoryError, Exception) as e:
                 logger.warning(f"Could not load SentenceTransformer ({e}). Using deterministic fallback embedding engine.")
                 cls._use_fallback = True
         return cls._model

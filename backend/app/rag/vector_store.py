@@ -1,8 +1,6 @@
 import os
 import logging
 from typing import List, Dict, Any, Optional
-import chromadb
-from chromadb.config import Settings as ChromaSettings
 from app.config import settings
 
 logger = logging.getLogger(__name__)
@@ -16,13 +14,20 @@ class VectorStore:
         if cls._client is None:
             os.makedirs(settings.CHROMA_PERSIST_DIRECTORY, exist_ok=True)
             try:
+                import chromadb
+                from chromadb.config import Settings as ChromaSettings
                 cls._client = chromadb.PersistentClient(
                     path=settings.CHROMA_PERSIST_DIRECTORY,
                     settings=ChromaSettings(anonymized_telemetry=False)
                 )
             except Exception as e:
                 logger.warning(f"Error initializing PersistentClient ({e}). Falling back to EphemeralClient.")
-                cls._client = chromadb.EphemeralClient()
+                try:
+                    import chromadb
+                    cls._client = chromadb.EphemeralClient()
+                except Exception as ex:
+                    logger.error(f"Could not initialize ChromaDB client ({ex}).")
+                    cls._client = None
         return cls._client
 
     @classmethod

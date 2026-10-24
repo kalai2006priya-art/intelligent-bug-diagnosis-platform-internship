@@ -116,9 +116,32 @@ class VectorStore:
         return parsed_results
 
     @classmethod
+    def is_initialized(cls) -> bool:
+        """Returns True only if ChromaDB collection has already been loaded in memory."""
+        return cls._client is not None and cls._collection is not None
+
+    @classmethod
+    def cached_count(cls) -> int:
+        """
+        Lightweight count check that strictly DOES NOT initialize ChromaDB if it has not been loaded.
+        Safe for use in health checks and monitoring.
+        """
+        if cls._collection is None:
+            return 0
+        try:
+            return cls._collection.count()
+        except Exception as e:
+            logger.warning(f"Failed to read cached vector count: {e}")
+            return 0
+
+    @classmethod
     def count(cls) -> int:
+        """Returns collection count, initializing the collection if requested by a feature."""
         try:
             collection = cls.get_collection()
+            if collection is None:
+                return 0
             return collection.count()
-        except Exception:
+        except Exception as e:
+            logger.error(f"Error accessing vector collection count: {e}", exc_info=True)
             return 0

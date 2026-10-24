@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
@@ -12,6 +13,8 @@ PROJECT_DIR = TESTS_DIR.parent
 BACKEND_DIR = PROJECT_DIR / "backend"
 sys.path.insert(0, str(BACKEND_DIR))
 
+from app.config import settings
+from app.rag.vector_store import VectorStore
 from app.main import app
 from app.database.session import Base, get_db
 from app.database.init_db import seed_sample_defects_if_empty
@@ -21,6 +24,12 @@ from app.utils.security import get_password_hash, create_access_token
 # Test SQLite in-memory or dedicated test database
 TEST_DB_PATH = PROJECT_DIR / "test_bug_platform.db"
 TEST_DATABASE_URL = f"sqlite:///{TEST_DB_PATH}"
+
+# Test ChromaDB isolated directory
+TEST_CHROMA_DIR = PROJECT_DIR / "test_chroma_db"
+settings.CHROMA_PERSIST_DIRECTORY = str(TEST_CHROMA_DIR)
+VectorStore._client = None
+VectorStore._collection = None
 
 test_engine = create_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
@@ -37,6 +46,13 @@ def setup_test_db():
     if TEST_DB_PATH.exists():
         try:
             TEST_DB_PATH.unlink()
+        except Exception:
+            pass
+    VectorStore._client = None
+    VectorStore._collection = None
+    if TEST_CHROMA_DIR.exists():
+        try:
+            shutil.rmtree(TEST_CHROMA_DIR, ignore_errors=True)
         except Exception:
             pass
 

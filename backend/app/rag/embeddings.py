@@ -12,10 +12,38 @@ class EmbeddingService:
     _use_fallback = False
 
     @classmethod
+    def get_embedding_mode(cls) -> str:
+        """
+        Explicitly identifies the active embedding mechanism.
+        Clearly differentiates between dense neural transformer embeddings and
+        the lightweight lexical token-hash projection fallback.
+        """
+        if settings.LOW_MEMORY_MODE:
+            return "lexical_hash_projection_fallback (low_memory_mode enabled)"
+        if cls._use_fallback:
+            return "lexical_hash_projection_fallback (transformer unavailable / memory fallback)"
+        if cls._model is not None:
+            return f"{settings.EMBEDDING_MODEL_NAME} (dense neural transformer loaded)"
+        return f"{settings.EMBEDDING_MODEL_NAME} (lazy, uninitialized)"
+
+    @classmethod
+    def is_model_loaded(cls) -> bool:
+        """Returns True only if the dense neural model is currently loaded in memory."""
+        return cls._model is not None
+
+    @classmethod
     def get_model(cls):
+        """
+        Lazily loads the SentenceTransformer model only when requested by an active feature.
+        If LOW_MEMORY_MODE is set or memory is constrained, explicitly falls back to
+        the lightweight lexical token-hash projection without crashing.
+        """
         if settings.LOW_MEMORY_MODE:
             if not cls._use_fallback:
-                logger.info("LOW_MEMORY_MODE enabled. Using deterministic 384-d semantic projection engine.")
+                logger.info(
+                    "LOW_MEMORY_MODE is active. Using lightweight deterministic 384-d token-hash projection. "
+                    "Note: This is a memory-saving lexical fallback (<512MB RAM) and is not equivalent to dense neural MiniLM embeddings."
+                )
                 cls._use_fallback = True
             return None
 
@@ -27,19 +55,24 @@ class EmbeddingService:
                 except Exception:
                     pass
                 from sentence_transformers import SentenceTransformer
-                logger.info(f"Loading embedding model: {settings.EMBEDDING_MODEL_NAME}")
+                logger.info(f"Loading dense neural embedding model: {settings.EMBEDDING_MODEL_NAME}")
                 cls._model = SentenceTransformer(settings.EMBEDDING_MODEL_NAME)
             except (MemoryError, Exception) as e:
-                logger.warning(f"Could not load SentenceTransformer ({e}). Using deterministic fallback embedding engine.")
+                logger.warning(
+                    f"Could not load SentenceTransformer ({e}). Falling back to lightweight lexical token-hash projection. "
+                    "Note: Lexical token-hash projection is not equivalent to dense neural MiniLM embeddings."
+                )
                 cls._use_fallback = True
         return cls._model
 
     @classmethod
     def _fallback_embed(cls, text: str, dim: int = 384) -> List[float]:
         """
-        Deterministic, zero-dependency 384-dimensional semantic projection vector.
-        Ensures identical text produces identical normalized vectors with cosine similarity
-        reflecting token overlap and semantic keywords.
+        Deterministic, zero-dependency 384-dimensional lexical token-hash projection vector.
+        Designed for memory-constrained hosting environments (<512MB RAM).
+        CRITICAL DISTINCTION: This generates normalized vectors reflecting lexical keyword
+        and token overlap. It does NOT produce dense semantic representations and is NOT
+        equivalent to the all-MiniLM-L6-v2 transformer model.
         """
         vec = np.zeros(dim, dtype=np.float32)
         words = text.lower().split()

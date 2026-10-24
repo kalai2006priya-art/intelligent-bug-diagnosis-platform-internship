@@ -1,22 +1,23 @@
 from fastapi import APIRouter
 from app.config import settings
 from app.rag.vector_store import VectorStore
+from app.rag.embeddings import EmbeddingService
 
 router = APIRouter(tags=["Health & Status"])
 
 @router.get("/health")
 def health_check():
-    """System health check endpoint."""
-    chunks = 0
-    try:
-        chunks = VectorStore.count()
-    except Exception:
-        chunks = 0
+    """
+    Lightweight health check endpoint.
+    Strictly avoids initializing ChromaDB or loading the heavy embedding model into memory.
+    """
     return {
         "status": "healthy",
         "service": settings.APP_NAME,
         "environment": settings.APP_ENV,
-        "vector_store_chunks": chunks,
+        "vector_store_chunks": VectorStore.cached_count(),
+        "vector_store_initialized": VectorStore.is_initialized(),
+        "embedding_mode": EmbeddingService.get_embedding_mode(),
         "memory_mode": "low_memory" if settings.LOW_MEMORY_MODE else "standard"
     }
 

@@ -1,6 +1,9 @@
+import logging
 from typing import List, Dict, Any, Optional
 from app.rag.embeddings import EmbeddingService
 from app.rag.vector_store import VectorStore
+
+logger = logging.getLogger(__name__)
 
 class RAGRetriever:
     @classmethod
@@ -20,18 +23,22 @@ class RAGRetriever:
         try:
             from app.database.init_db import ensure_vector_store_seeded
             ensure_vector_store_seeded()
-        except Exception:
-            pass
+        except Exception as e:
+            logger.error(f"Vector store lazy seeding failed before retrieval: {e}", exc_info=True)
 
-        query_emb = EmbeddingService.get_embedding(query.strip())
-        where_filter = {"source": source_filter} if source_filter else None
-        
-        matches = VectorStore.query(
-            query_embedding=query_emb,
-            top_k=top_k,
-            where_filter=where_filter
-        )
-        return matches
+        try:
+            query_emb = EmbeddingService.get_embedding(query.strip())
+            where_filter = {"source": source_filter} if source_filter else None
+            
+            matches = VectorStore.query(
+                query_embedding=query_emb,
+                top_k=top_k,
+                where_filter=where_filter
+            )
+            return matches
+        except Exception as e:
+            logger.error(f"RAGRetriever failed to retrieve similar defects: {e}", exc_info=True)
+            return []
 
     @classmethod
     def build_rag_context_string(cls, matches: List[Dict[str, Any]]) -> str:

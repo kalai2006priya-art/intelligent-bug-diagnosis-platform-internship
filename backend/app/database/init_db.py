@@ -101,16 +101,18 @@ def seed_sample_defects_if_empty(db: Session):
 def ensure_vector_store_seeded():
     """
     Lazily indexes sample historical defect chunks into ChromaDB only when needed.
-    Prevents memory spikes during server startup.
+    Prevents memory spikes during server startup and avoids re-embedding if chunks already exist.
     """
     try:
         if VectorStore.count() > 0:
+            logger.info("Vector store already contains indexed chunks; skipping re-embedding.")
             return
     except Exception as e:
-        logger.warning(f"Could not verify existing vector count: {e}")
+        logger.warning(f"Could not verify existing vector count before seeding: {e}")
 
     sample_dir = Path(settings.DATA_SAMPLE_DIR)
     if not sample_dir.exists():
+        logger.warning(f"Sample data directory does not exist for vector seeding: {sample_dir}")
         return
 
     sample_files = [
@@ -157,3 +159,4 @@ def ensure_vector_store_seeded():
             logger.info(f"Successfully indexed {len(chunk_ids)} chunks into ChromaDB.")
         except Exception as e:
             logger.error(f"Error indexing chunks in ChromaDB: {e}", exc_info=True)
+            raise

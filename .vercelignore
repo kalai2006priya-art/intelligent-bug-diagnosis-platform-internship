@@ -1,0 +1,19 @@
+# Vercel Ignore Configuration
+# Exclude offline datasets, Python backend, test caches, and virtual environments from Vercel web builds
+
+data/
+chroma_db/
+backend/chroma_db/
+test_chroma_db/
+*.db
+*.sqlite3
+.venv/
+venv/
+env/
+backend/
+tests/
+agile/
+docs/
+scripts/
+.env*
+*.pdf
